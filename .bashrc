@@ -10,3 +10,8 @@ PS1='[\u@\h \W]\$ '
 
 # Set editor
 export VISUAL="nano"
+
+# Set terminal
+export TERMINAL="roxterm"
+
+export PATH=$PATH:~/bin

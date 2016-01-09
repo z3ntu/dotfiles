@@ -50,7 +50,7 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -opacity \
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+odiaeresis focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -62,7 +62,7 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+odiaeresis move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -125,8 +125,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec qtshutdownmenu
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+e exec qtshutdownmenu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -139,7 +139,7 @@ mode "resize" {
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym odiaeresis resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -162,19 +162,22 @@ bar {
 }
 
 
-## MEDIA KEYS
+### MEDIA KEYS
 # Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q sset Master 5%+"
-bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q sset Master 5%-"
-bindsym XF86AudioMute exec --no-startup-id "amixer -q sset Master toggle"
+#bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q sset Master 5%+"
+#bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q sset Master 5%-"
+#bindsym XF86AudioMute exec --no-startup-id "amixer -q sset Master toggle"
+bindsym XF86AudioRaiseVolume exec /usr/local/bin/pacvol.sh up
+bindsym XF86AudioLowerVolume exec /usr/local/bin/pacvol.sh down
+bindsym XF86AudioMute exec /usr/local/bin/pacvol.sh toggle
 
 # Screen brightness controls
 #bindsym XF86MonBrightnessUp exec "xbacklight -inc 20" # increase screen brightness
 #bindsym XF86MonBrightnessDown exec "xbacklight -dec 20" # decrease screen brightness
 
 # Keyboard brightness controls
-bindsym XF86KbdBrightnessUp exec "kbd_backlight up" # increase keyboard brightness
-bindsym XF86KbdBrightnessDown exec "kbd_backlight down" # decrease keyboard brightness
+bindsym XF86KbdBrightnessUp exec "kbd_backlight up"
+bindsym XF86KbdBrightnessDown exec "kbd_backlight down"
 
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /usr/local/bin/toggletouchpad.sh # toggle touchpad
@@ -184,9 +187,6 @@ bindsym XF86AudioPlay exec "playerctl play"
 bindsym XF86AudioPause exec "playerctl pause"
 bindsym XF86AudioNext exec "playerctl next"
 bindsym XF86AudioPrev exec "playerctl previous"
-
-# Start nm-applet for networkmanager
-#exec --no-startup-id nm-applet
 
 # scrot & gpicview - root
 bindsym Print exec "scrot -e 'mv $f /tmp/ && gpicview /tmp/$f'"
@@ -199,14 +199,28 @@ bindsym $mod+P exec --no-startup-id nautilus
 # Bind $mod+L to lock script
 bindsym $mod+M exec --no-startup-id lock
 
-# Start pulseaudio
-exec --no-startup-id "pulseaudio --start"
+
 
 # Start calculator on calculator key
 bindsym XF86Calculator exec "gnome-calculator"
 
 # Start Chrome on left top button (like the power button)
-bindcode 248 exec "google-chrome-unstable"
+bindcode 248 exec qtshutdownmenu
 
-# Bind powerbutton to lock script (maybe even power)
-bindsym XF86Sleep exec "lock"
+# Bind sleep key to suspend (set 'HandleSuspendKey=ignore' in /etc/systemd/logind.conf)
+bindsym XF86Sleep exec "qtshutdownmenu suspend"
+
+
+
+### AUTOSTARTS
+# Start nm-applet for networkmanager
+exec --no-startup-id nm-applet
+# Start pulseaudio
+exec --no-startup-id "pulseaudio --start"
+# Start owncloud
+exec --no-startup-id i3-msg 'workspace 8; exec owncloud'
+# Start Telegram
+exec --no-startup-id i3-msg 'workspace 9; exec /home/luca/Programs/Binary/Telegram/Telegram'
+# Start keepass
+exec --no-startup-id i3-msg 'workspace 10; exec keepass'
+
