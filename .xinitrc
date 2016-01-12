@@ -1,10 +1,10 @@
 # From ArchWiki (Nvidia Optimus)
-#xrandr --setprovideroutputsource modesetting NVIDIA-0
-#xrandr --auto
-#xrandr --dpi 96
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+xrandr --dpi 100
 
 # Set laptop monitor to primary
-xrandr --output eDP1 --primary
+xrandr --output eDP-1 --primary
 
 # Set keymap
 setxkbmap de

@@ -10,7 +10,7 @@ set $w1 1: WWW
 set $w2 2: TERM
 set $w3 3: DEV
 set $w4 4
-set $w5 5: FILE
+set $w5 5
 set $w6 6
 set $w7 7
 set $w8 8 OC
@@ -19,15 +19,19 @@ set $w10 10 KEEPASS
 
 # assign sections
 assign [title="Google Chrome"]  → $w1
-assign [class="terminal"]       → $w2
-assign [class="^Roxterm$"]      → $w2
-assign [class="^Nautilus$"]     → $w5
+#assign [class="terminal"]       → $w2
+#assign [class="^Roxterm$"]      → $w2
+assign [class="^MonoDevelop$"]	→ $w3
+#assign [class="^Nautilus$"]     → $w5
 assign [class="ownCloud"]	→ $w8
 assign [class="^Telegram$"]	→ $w9
 assign [class="KeePass2"]	→ $w10
 
 # assign special properties
 for_window [class="^Pavucontrol$"] floating enable
+for_window [title="MonoDevelop External Console"] floating enable
+for_window [title="^Friends$" class="^Steam$"] floating enable
+for_window [title="Steam - Update News" class="^Steam$"] floating enable
 
 # font for window titles
 font pango:Source Sans Pro 12
