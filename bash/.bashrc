@@ -15,3 +15,4 @@ export VISUAL="nano"
 export TERMINAL="roxterm"
 
 export PATH=$PATH:~/bin
+

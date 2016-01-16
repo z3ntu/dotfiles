@@ -13,9 +13,9 @@ set $w4 4: SCHOOL
 set $w5 5
 set $w6 6
 set $w7 7
-set $w8 8 OC
-set $w9 9 TG
-set $w10 10 KEEPASS
+set $w8 8: OC
+set $w9 9: TG
+set $w10 10: KEEPASS
 
 # assign sections
 assign [title="Google Chrome"]		→ $w1
