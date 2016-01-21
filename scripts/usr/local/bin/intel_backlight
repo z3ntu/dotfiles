@@ -1,12 +1,11 @@
 #!/bin/bash
 
-path="/sys/class/leds/asus::kbd_backlight"
-#path="/sys/class/leds/asus\:\:kbd_backlight"
+path="/sys/class/backlight/intel_backlight"
 
-# max should be 3
+# maximum brightness
 max=$(cat ${path}/max_brightness)
 # step: represent the difference between previous and next brightness
-step=1
+step=250
 previous=$(cat ${path}/brightness)
 
 function commit {
@@ -53,7 +52,7 @@ case "$1" in
  allowusers)
 	 # Allow members of users group to change brightness
 	 sudo chgrp users ${path}/brightness
-	 sudo chmod g+w ${path}/brightness
+	 sudo chmod a+w ${path}/brightness
   ;;
  disallowusers)
 	 # Allow members of users group to change brightness

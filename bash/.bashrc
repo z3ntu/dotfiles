@@ -16,3 +16,5 @@ export TERMINAL="roxterm"
 
 export PATH=$PATH:~/bin
 
+# (i didn't memorize the name of cmus :D)
+alias musicplayer="cmus"

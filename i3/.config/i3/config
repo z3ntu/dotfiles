@@ -29,13 +29,17 @@ assign [class="KeePass2"]		→ $w10
 for_window [class="^Pavucontrol$"] floating enable
 for_window [title="MonoDevelop External Console"] floating enable
 for_window [class="^Shutter$"] floating enable
+# Enables floating windows of the chrome extension "Videostream for Chromecast"
+for_window [instance="^crx_cnciopoikihiagdjbjpnocolokfelagl$"] floating enable
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 for_window [class="^Steam$" title="^Friends$"] floating enable
 for_window [class="^Steam$" title="Steam - Update News"] floating enable
 for_window [class="^Steam$" title=".* - Chat"] floating enable
 for_window [class="^Steam$" title="^Settings$"] floating enable
+for_window [class="^Steam$" title=".* - event started"] floating enable
 
+# There is no specific property for windows that should be floating (eg. the WM_NAME is the device name (PC1))
 for_window [class="^PacketTracer6$"] floating enable
 for_window [class="^PacketTracer6$" title="PT Activity"] floating disable
 for_window [class="^PacketTracer6$" title="Cisco Packet Tracer Student"] floating disable
@@ -183,22 +187,27 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q sset Master 5%+"
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q sset Master 5%-"
 bindsym XF86AudioMute exec --no-startup-id "amixer -q sset Master toggle"
 
-# Screen brightness controls (works without this if "acpi_osi=" is in the kernel parameter)
-#bindsym XF86MonBrightnessUp exec "xbacklight -inc 20" # increase screen brightness
-#bindsym XF86MonBrightnessDown exec "xbacklight -dec 20" # decrease screen brightness
+# Screen brightness controls (keys don't work without the "acpi_osi=" kernel parameter (no key, no change in backlight), with this parameter it works without configuration; i'll leave this here if is does not work one day)
+bindsym XF86MonBrightnessUp exec "intel_backlight up"
+bindsym XF86MonBrightnessDown exec "intel_backlight down"
 
 # Keyboard brightness controls (follow https://wiki.archlinux.org/index.php/ASUS_G55VW#keyboard_backlight_script)
 bindsym XF86KbdBrightnessUp exec "kbd_backlight up"
 bindsym XF86KbdBrightnessDown exec "kbd_backlight down"
 
 # Touchpad controls - file is in this repository (https://github.com/z3ntu/dotfiles)
-bindsym XF86TouchpadToggle exec /usr/local/bin/toggletouchpad.sh # toggle touchpad
+bindsym XF86TouchpadToggle exec /usr/local/bin/toggletouchpad.sh
 
 # Media player controls
-bindsym XF86AudioPlay exec "playerctl play"
-bindsym XF86AudioPause exec "playerctl pause"
-bindsym XF86AudioNext exec "playerctl next"
-bindsym XF86AudioPrev exec "playerctl previous"
+#bindsym XF86AudioPlay exec "playerctl play"
+#bindsym XF86AudioPause exec "playerctl pause"
+#bindsym XF86AudioNext exec "playerctl next"
+#bindsym XF86AudioPrev exec "playerctl previous"
+# The XF86AudioPlay key is labeled "Play/Pause" (graphical)
+bindsym XF86AudioPlay exec "cmus-remote -u"
+bindsym XF86AudioNext exec "cmus-remote -n"
+bindsym XF86AudioPrev exec "cmus-remote -r"
+bindsym XF86AudioStop exec "cmus-remote -s"
 
 # scrot & gpicview - root
 bindsym Print exec "scrot -e 'mv $f /tmp/ && gpicview /tmp/$f'"
@@ -208,9 +217,8 @@ bindsym $mod+Print exec "scrot -u -e 'mv $f /tmp/ && gpicview /tmp/$f'"
 # Bind $mod+P to file manager
 bindsym $mod+P exec --no-startup-id nautilus
 
-# Bind $mod+L to own lock script
+# Bind $mod+M to own lock script
 bindsym $mod+M exec --no-startup-id lock
-
 
 # Start calculator on calculator key
 bindsym XF86Calculator exec "gnome-calculator"
@@ -225,7 +233,7 @@ bindsym XF86Sleep exec "qtshutdownmenu suspend"
 ### AUTOSTARTS
 # Start nm-applet for networkmanager
 exec --no-startup-id nm-applet
-# Start pulseaudio (I don't know if this is needed)
+# Start pulseaudio
 exec --no-startup-id "pulseaudio --start"
 # Start owncloud
 exec --no-startup-id owncloud
@@ -233,4 +241,3 @@ exec --no-startup-id owncloud
 exec --no-startup-id /home/luca/Programs/Binary/Telegram/Telegram
 # Start keepass
 exec --no-startup-id keepass
-
