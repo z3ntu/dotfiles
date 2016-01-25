@@ -18,3 +18,6 @@ export PATH=$PATH:~/bin
 
 # (i didn't memorize the name of cmus :D)
 alias musicplayer="cmus"
+
+# RubyGems
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"

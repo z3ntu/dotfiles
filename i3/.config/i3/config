@@ -31,6 +31,8 @@ for_window [title="MonoDevelop External Console"] floating enable
 for_window [class="^Shutter$"] floating enable
 # Enables floating windows of the chrome extension "Videostream for Chromecast"
 for_window [instance="^crx_cnciopoikihiagdjbjpnocolokfelagl$"] floating enable
+# The Chrome "Page Unresponsive" dialog is not floating...
+for_window [title="Page Unresponsive"] floating enable
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 for_window [class="^Steam$" title="^Friends$"] floating enable
