@@ -33,6 +33,8 @@ for_window [class="^Shutter$"] floating enable
 for_window [instance="^crx_cnciopoikihiagdjbjpnocolokfelagl$"] floating enable
 # The Chrome "Page Unresponsive" dialog is not floating...
 for_window [title="Page Unresponsive"] floating enable
+# Share your screen from Google Cast extension
+for_window [title="Share your screen - Google Cast"] floating enable
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 for_window [class="^Steam$" title="^Friends$"] floating enable
