@@ -35,6 +35,8 @@ for_window [instance="^crx_cnciopoikihiagdjbjpnocolokfelagl$"] floating enable
 for_window [title="Page Unresponsive"] floating enable
 # Share your screen from Google Cast extension
 for_window [title="Share your screen - Google Cast"] floating enable
+# TeamSpeak new features window
+for_window [class="^TeamSpeak 3$" title="^New TeamSpeak Features"] floating enable
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 for_window [class="^Steam$" title="^Friends$"] floating enable
@@ -42,11 +44,14 @@ for_window [class="^Steam$" title="Steam - Update News"] floating enable
 for_window [class="^Steam$" title=".* - Chat"] floating enable
 for_window [class="^Steam$" title="^Settings$"] floating enable
 for_window [class="^Steam$" title=".* - event started"] floating enable
+for_window [class="^Steam$" title=".* CD key"] floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
 
 # There is no specific property for windows that should be floating (eg. the WM_NAME is the device name (PC1))
 for_window [class="^PacketTracer6$"] floating enable
 for_window [class="^PacketTracer6$" title="PT Activity"] floating disable
-for_window [class="^PacketTracer6$" title="Cisco Packet Tracer Student"] floating disable
+for_window [class="^PacketTracer6$" title="Cisco Packet Tracer"] floating disable
 
 # font for window titles
 font pango:Source Sans Pro 12

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-device=13
+device=16
 property=167
 mode="$(xinput list-props $device | grep $property | awk '{ print $4 }')"
 if [ "$mode" == "1" ]; then
