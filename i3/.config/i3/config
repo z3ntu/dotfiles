@@ -38,8 +38,10 @@ for_window [title="Page Unresponsive"] floating enable
 for_window [title="Share your screen - Google Cast"] floating enable
 # TeamSpeak new features window
 for_window [class="^TeamSpeak 3$" title="^New TeamSpeak Features"] floating enable
-# Jetbrains Updater
+
+# Jetbrains
 for_window [class="^com-intellij-updater-Runner$" title="^Update$"] floating enable
+for_window [instance="^sun-awt-X11-XDialogPeer$" title="^Complete Installation$"] floating enable
 
 # Unity
 for_window [class="^Unity$" title="^Starting Unity...$"] floating enable

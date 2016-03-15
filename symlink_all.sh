@@ -1,6 +1,7 @@
 #!/bin/bash
 
 stow bash
+stow fish
 stow gtk-3.0
 stow i3
 stow xorg
