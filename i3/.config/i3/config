@@ -39,6 +39,8 @@ for_window [title="Share your screen - Google Cast"] floating enable
 # TeamSpeak new features window
 for_window [class="^TeamSpeak 3$" title="^New TeamSpeak Features"] floating enable
 
+for_window [class="^Vlc$"] fullscreen disable
+
 # Jetbrains
 for_window [class="^com-intellij-updater-Runner$" title="^Update$"] floating enable
 for_window [instance="^sun-awt-X11-XDialogPeer$" title="^Complete Installation$"] floating enable
@@ -81,7 +83,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -opacity \"50\" -dmenu -p "run:"'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --entry-type=name --dmenu='rofi -i -opacity \"50\" -dmenu -p "run:"'
 
 # change focus
 bindsym $mod+j focus left
