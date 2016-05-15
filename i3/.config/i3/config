@@ -251,7 +251,7 @@ bindcode 248 exec qtshutdownmenu
 
 # Bind sleep key to suspend (set 'HandleSuspendKey=ignore' in /etc/systemd/logind.conf)
 bindsym XF86Sleep exec "qtshutdownmenu suspend"
-
+bindsym XF86PowerOff exec qtshutdownmenu
 
 ### AUTOSTARTS
 # Start nm-applet for networkmanager
@@ -266,3 +266,6 @@ exec --no-startup-id /home/luca/Programs/Binary/Telegram/Telegram
 exec --no-startup-id keepass
 
 exec --no-startup-id "xrandr --auto"
+# Start redshift
+exec --no-startup-id redshift-gtk
+

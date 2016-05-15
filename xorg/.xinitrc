@@ -1,3 +1,5 @@
+export PTHOME=/opt/pt/
+
 # From ArchWiki (Nvidia Optimus)
 xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
@@ -16,4 +18,6 @@ feh --bg-scale /home/luca/Pictures/Wallpaper/1.jpg
 #exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Start i3
+#exec startkde
 exec i3
+#exec openbox-session

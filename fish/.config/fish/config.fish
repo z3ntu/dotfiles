@@ -1,6 +1,9 @@
 set -x TERMINAL roxterm
 #set -x TERMINAL termite
 
+alias livestreamer="livestreamer --player mpv"
+alias gpg_decrypt_clipboard="xsel --clipboard | gpg --decrypt -"
+
 if status --is-login
         set PATH $PATH ~/bin /usr/local/bin
 end
