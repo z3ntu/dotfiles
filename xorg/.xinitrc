@@ -8,6 +8,9 @@ xrandr --dpi 100
 # Set laptop monitor to primary
 xrandr --output eDP-1 --primary
 
+# Run this file to run some xrandr commands if both my external monitors are connected
+./xinit_fish.sh
+
 # Set keymap
 setxkbmap de
 

@@ -39,8 +39,6 @@ for_window [title="Share your screen - Google Cast"] floating enable
 # TeamSpeak new features window
 for_window [class="^TeamSpeak 3$" title="^New TeamSpeak Features"] floating enable
 
-for_window [class="^Vlc$"] fullscreen disable
-
 # Jetbrains
 for_window [class="^com-intellij-updater-Runner$" title="^Update$"] floating enable
 for_window [instance="^sun-awt-X11-XDialogPeer$" title="^Complete Installation$"] floating enable
@@ -209,10 +207,13 @@ bar {
 bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q sset Master 5%+"
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q sset Master 5%-"
 bindsym XF86AudioMute exec --no-startup-id "amixer -q sset Master toggle"
+# My "Sound Blaster Play!" soundcard doesn't play anything under 35% and is much too loud at 40%, that's why I need 1% steps
+bindsym $mod+dead_acute exec --no-startup-id "amixer -q sset Master 1%+"
+bindsym $mod+ssharp exec --no-startup-id "amixer -q sset Master 1%-"
 
 # Screen brightness controls (keys don't work without the "acpi_osi=" kernel parameter (no key, no change in backlight), with this parameter it works without configuration; i'll leave this here if is does not work one day)
-bindsym XF86MonBrightnessUp exec "intel_backlight up"
-bindsym XF86MonBrightnessDown exec "intel_backlight down"
+#bindsym XF86MonBrightnessUp exec "intel_backlight up"
+#bindsym XF86MonBrightnessDown exec "intel_backlight down"
 
 # Keyboard brightness controls (follow https://wiki.archlinux.org/index.php/ASUS_G55VW#keyboard_backlight_script)
 bindsym XF86KbdBrightnessUp exec "kbd_backlight up"
@@ -248,10 +249,10 @@ bindsym XF86Calculator exec "gnome-calculator"
 
 # Start the shutdown menu on left top button (like the power button)
 bindcode 248 exec qtshutdownmenu
+bindsym XF86PowerOff exec qtshutdownmenu
 
 # Bind sleep key to suspend (set 'HandleSuspendKey=ignore' in /etc/systemd/logind.conf)
 bindsym XF86Sleep exec "qtshutdownmenu suspend"
-bindsym XF86PowerOff exec qtshutdownmenu
 
 ### AUTOSTARTS
 # Start nm-applet for networkmanager
@@ -264,8 +265,6 @@ exec --no-startup-id owncloud
 exec --no-startup-id /home/luca/Programs/Binary/Telegram/Telegram
 # Start keepass
 exec --no-startup-id keepass
-
-exec --no-startup-id "xrandr --auto"
 # Start redshift
 exec --no-startup-id redshift-gtk
 
