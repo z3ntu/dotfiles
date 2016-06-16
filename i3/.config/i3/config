@@ -19,12 +19,11 @@ set $w10 10: KEEPASS
 set $wdummy dummy
 
 # assign sections
-assign [title="Google Chrome"]		→ $w1
-assign [class="^MonoDevelop$"]		→ $w3
-assign [class="^PacketTracer6$"]	→ $w4
-assign [class="ownCloud"]		→ $w8
-assign [class="^Telegram$"]		→ $w9
-assign [class="KeePass2"]		→ $w10
+assign [title="Google Chrome"]		$w1
+assign [class="^PacketTracer6$"]	$w4
+assign [class="ownCloud"]		$w8
+assign [class="^Telegram$"]		$w9
+assign [class="KeePass2"]		$w10
 
 # assign special properties
 for_window [class="^Pavucontrol$"] floating enable
@@ -38,6 +37,8 @@ for_window [title="Page Unresponsive"] floating enable
 for_window [title="Share your screen - Google Cast"] floating enable
 # TeamSpeak new features window
 for_window [class="^TeamSpeak 3$" title="^New TeamSpeak Features"] floating enable
+# Android Device Monitor startup window
+for_window [class="^Monitor$" instance="^Monitor$" title="^Monitor$"] floating enable
 
 # Jetbrains
 for_window [class="^com-intellij-updater-Runner$" title="^Update$"] floating enable
@@ -46,6 +47,8 @@ for_window [instance="^sun-awt-X11-XDialogPeer$" title="^Complete Installation$"
 # Unity
 for_window [class="^Unity$" title="^Starting Unity...$"] floating enable
 for_window [class="^Unity$" title="^Hold On$"] floating enable
+for_window [class="^Unity$" title="^Preparing Package$"] floating enable
+for_window [class="^Unity$" title="^Importing Package$"] floating enable
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 for_window [class="^Steam$" title="^Friends$"] floating enable
@@ -208,8 +211,8 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q sset Master 5%+"
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q sset Master 5%-"
 bindsym XF86AudioMute exec --no-startup-id "amixer -q sset Master toggle"
 # My "Sound Blaster Play!" soundcard doesn't play anything under 35% and is much too loud at 40%, that's why I need 1% steps
-bindsym $mod+dead_acute exec --no-startup-id "amixer -q sset Master 1%+"
-bindsym $mod+ssharp exec --no-startup-id "amixer -q sset Master 1%-"
+bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id "amixer -q sset Master 1%+"
+bindsym $mod+XF86AudioLowerVolume exec --no-startup-id "amixer -q sset Master 1%-"
 
 # Screen brightness controls (keys don't work without the "acpi_osi=" kernel parameter (no key, no change in backlight), with this parameter it works without configuration; i'll leave this here if is does not work one day)
 #bindsym XF86MonBrightnessUp exec "intel_backlight up"
