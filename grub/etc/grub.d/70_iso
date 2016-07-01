@@ -1,0 +1,45 @@
+#!/bin/sh
+cat <<EOF
+submenu 'ISO Boots' {
+	menuentry "[loopback]GParted Live" {
+		insmod loopback
+		loopback loop (hd1,gpt1)/iso/gparted-live-0.25.0-3-amd64.iso
+		linux (loop)/live/vmlinuz boot=live union=overlay username=user config components quiet noswap noeject toram=filesystem.squashfs ip=  nosplash findiso=/iso/gparted-live-0.25.0-3-amd64.iso
+		initrd (loop)/live/initrd.img
+	}
+	menuentry "[loopback]Kali Linux" {
+		loopback loop (hd1,gpt1)/iso/kali-linux-2016.1-amd64.iso
+		linux (loop)/live/vmlinuz boot=live findiso=/iso/kali-linux-2016.1-amd64.iso noconfig=sudo username=root hostname=kali
+		initrd (loop)/live/initrd.img
+	}
+	menuentry "[loopback]Linux Mint Cinnamon" {
+		loopback loop /iso/linuxmint-17.3-cinnamon-64bit.iso
+		linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=/iso/linuxmint-17.3-cinnamon-64bit.iso noeject noprompt 
+		initrd (loop)/casper/initrd.lz
+	}
+	menuentry '[loopback]ubuntu-14.04.1-desktop-amd64' {
+		loopback loop /iso/ubuntu-mate-16.04-beta1-desktop-amd64.iso
+		linux (loop)/casper/vmlinuz.efi boot=casper iso-scan/filename=/iso/ubuntu-mate-16.04-beta1-desktop-amd64.iso locale=en_US.UTF-8
+		initrd (loop)/casper/initrd.lz
+	}
+	menuentry "ReactOS" {
+		loopback loop /iso/ReactOS-0.4.0-Live.iso		
+		multiboot (loop)/freeldr.sys
+	}
+	menuentry "[loopback]Manjaro XFCE" {
+		loopback loop (hd1,gpt1)/iso/manjaro-xfce-15.12-x86_64.iso
+		linux (loop)/manjaro/boot/x86_64/manjaro misobasedir=manjaro misolabel=MANJARO_ISO nouveau.modeset=0 i915.modeset=1 radeon.modeset=0 logo.nologo locale.LANG=en_US.utf8 vconsole.keymap=de-latin1 timezone=Europe/Berlin nonfree=yes img_dev=/dev/sdb1 img_loop=manjaro-xfce-15.12-x86_64.iso --
+		initrd (loop)/manjaro/boot/x86_64/manjaro.img
+	}
+	menuentry "[loopback]Solus" {
+		loopback loop (hd1,gpt1)/iso/Solus-1.0.iso 
+		linux (loop)/boot/kernel root=live:LABEL=SolusLive --
+		initrd (loop)/boot/initrd.img
+	}
+	menuentry "[loopback]solydx" {
+		loopback loop (hd1,gpt1)/iso/solydx_8_64_201601.iso
+	        linux (loop)/live/vmlinuz findiso=/iso/solydx_8_64_201601.iso noeject noprompt  boot=live config ignore_uuid live-media-path=/live quiet splash --
+	        initrd (loop)/live/initrd.img
+	}
+}
+EOF

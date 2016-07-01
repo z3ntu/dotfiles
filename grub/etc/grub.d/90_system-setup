@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+cat <<EOF
+menuentry 'System setup' $menuentry_id_option 'uefi-firmware' {
+    fwsetup
+}
+menuentry "Reboot" {
+    reboot
+}
+
+menuentry "Halt" {
+    halt
+}
+EOF

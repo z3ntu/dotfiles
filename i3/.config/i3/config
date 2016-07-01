@@ -39,6 +39,8 @@ for_window [title="Share your screen - Google Cast"] floating enable
 for_window [class="^TeamSpeak 3$" title="^New TeamSpeak Features"] floating enable
 # Android Device Monitor startup window
 for_window [class="^Monitor$" instance="^Monitor$" title="^Monitor$"] floating enable
+# chromeIPass "No logins found." window
+for_window [title="^chromeIPass$"] floating enable
 
 # Jetbrains
 for_window [class="^com-intellij-updater-Runner$" title="^Update$"] floating enable
@@ -52,7 +54,7 @@ for_window [class="^Unity$" title="^Importing Package$"] floating enable
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 for_window [class="^Steam$" title="^Friends$"] floating enable
-for_window [class="^Steam$" title="Steam - Update News"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
 for_window [class="^Steam$" title=".* - Chat"] floating enable
 for_window [class="^Steam$" title="^Settings$"] floating enable
 for_window [class="^Steam$" title=".* - event started"] floating enable
@@ -84,7 +86,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --entry-type=name --dmenu='rofi -i -opacity \"50\" -dmenu -p "run:"'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --entry-type=name --dmenu='rofi -i -opacity \"90\" -dmenu -p "run:"'
 
 # change focus
 bindsym $mod+j focus left
@@ -270,4 +272,5 @@ exec --no-startup-id /home/luca/Programs/Binary/Telegram/Telegram
 exec --no-startup-id keepass
 # Start redshift
 exec --no-startup-id redshift-gtk
-
+# Start compton
+#exec --no-startup-id compton -b #--focus-exclude "x = 0 && y = 0 && override_redirect = true"

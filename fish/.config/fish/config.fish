@@ -6,6 +6,8 @@ set -gx PATH (ruby -e 'print Gem.user_dir')/bin $PATH
 alias livestreamer="livestreamer --player mpv"
 alias gpg_decrypt_clipboard="xsel --clipboard | gpg --decrypt -"
 
+export LESS="-RSMsi"
+
 eval (thefuck --alias | tr '\n' ';')
 
 if status --is-login
