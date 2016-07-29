@@ -1,0 +1,24 @@
+#!/bin/bash
+log="/var/log/yubilock.log"
+yubimap="/etc/yubikeys_lock"
+user=`ps aux | grep -v root | grep session | head -n 1 | awk '{print $1}'`
+
+sessionid=`/usr/bin/loginctl list-sessions | grep ${user} | awk '{print $1}'`
+
+echo "$(date) $(whoami) '$0' '$1'" >> ${log}
+case "$1" in
+  enable)
+    if [ -n ${user} -a "$(grep -c ${user}:000$(ykinfo -q -s) ${yubimap})" == "1" ]; then
+      loginctl lock-session $sessionid &>> ${log}
+    fi
+  ;;
+  disable)
+    if [ -n ${user} -a "$(grep -c ${user}:000$(ykinfo -q -s) ${yubimap})" == "1" ]; then
+      loginctl unlock-session $sessionid &>> ${log}
+    fi
+  ;;
+*)
+  echo "Please write either 'enable' or 'disable' as parameter!" | tee -a ${log}
+esac
+
+# vim:set ts=2 sw=2 et:

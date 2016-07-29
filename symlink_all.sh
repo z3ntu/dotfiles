@@ -8,3 +8,4 @@ stow xorg
 sudo stow -t / grub/
 sudo stow -t / xorg-conf/
 sudo stow -t / scripts/
+sudo stow -t / udev/

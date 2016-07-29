@@ -5,14 +5,8 @@ xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
 xrandr --dpi 100
 
-# Set laptop monitor to primary
-xrandr --output eDP-1 --primary
-
 # Run this file to run some xrandr commands if both my external monitors are connected
 ./xinit_fish.sh
-
-# Set keymap
-setxkbmap de
 
 # Set background
 feh --bg-scale /home/luca/Pictures/Wallpaper/1.jpg

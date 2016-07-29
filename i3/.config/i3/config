@@ -23,7 +23,7 @@ assign [title="Google Chrome"]		$w1
 assign [class="^PacketTracer6$"]	$w4
 assign [class="ownCloud"]		$w8
 assign [class="^Telegram$"]		$w9
-assign [class="KeePass2"]		$w10
+assign [class="^Keepassx2$"]		$w10
 
 # assign special properties
 for_window [class="^Pavucontrol$"] floating enable
@@ -269,7 +269,7 @@ exec --no-startup-id owncloud
 # Start Telegram
 exec --no-startup-id /home/luca/Programs/Binary/Telegram/Telegram
 # Start keepass
-exec --no-startup-id keepass
+exec --no-startup-id keepassx2
 # Start redshift
 exec --no-startup-id redshift-gtk
 # Start compton
