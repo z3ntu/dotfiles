@@ -1,4 +1,7 @@
 #!/bin/bash
+
+exit 0
+
 log="/var/log/yubilock.log"
 yubimap="/etc/yubikeys_lock"
 user=`ps aux | grep -v root | grep session | head -n 1 | awk '{print $1}'`
