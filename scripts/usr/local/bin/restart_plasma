@@ -1,3 +1,4 @@
 #!/bin/bash
 
-kquitapp plasmashell && kstart plasmashell
+kquitapp plasmashell
+kstart plasmashell
