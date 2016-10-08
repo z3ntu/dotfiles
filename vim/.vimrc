@@ -34,7 +34,7 @@ colorscheme monokai
 autocmd vimenter * NERDTree
 autocmd vimenter * wincmd p
 " Close vim if only NERDTree is open
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Set tabs to spaces
 set ts=4 sw=4 et
