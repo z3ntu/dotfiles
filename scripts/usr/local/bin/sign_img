@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ ! -n "$1" ]; then
+  echo "Usage: $0 <file.img>"
+  exit 1
+fi
+
+java -jar /mnt/hdd/efidroid/misc_stuff/BootSignature.jar /boot $1 /mnt/hdd/efidroid/misc_stuff/keystore.pk8 /mnt/hdd/efidroid/misc_stuff/keystore.x509.pem $1.signed

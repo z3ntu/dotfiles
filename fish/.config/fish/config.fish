@@ -21,3 +21,4 @@ if status --is-login
     end
 end
 
+export AURDEST="/home/luca/aur"

@@ -40,3 +40,5 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 set ts=4 sw=4 et
 " Enable line numbers
 set number
+" Set line endings to unix automagically
+set ff=unix

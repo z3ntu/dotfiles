@@ -1,0 +1,39 @@
+#!/bin/bash
+
+NVIDIA_OUTPUT=`pacman -Q nvidia 2>&1`
+
+if [[ $NVIDIA_OUTPUT == error* ]]; then
+    echo -n "Nvidia not found, install it? [y/N] "
+    read output
+    if [ "$output" == "" ]; then
+        echo "Aborting..."
+        exit 1
+    elif [ "$output" == "y" ] ; then
+        echo # yes 
+    elif [ "$output" == "Y" ] ; then
+        echo # yes
+    else
+        echo "Aborting..."
+        exit 1
+    fi
+    sudo pacman -Rsndd mesa-libgl lib32-mesa-libgl xf86-video-intel
+    sudo pacman -S lib32-nvidia-libgl lib32-nvidia-utils lib32-opencl-nvidia nvidia nvidia-libgl nvidia-settings nvidia-utils opencl-nvidia
+else
+    echo -n "Nvidia found, remove it? [y/N] "
+    read output
+    if [ "$output" == "" ]; then
+        echo "Aborting..."
+        exit 1
+    elif [ "$output" == "y" ] ; then
+        echo # yes 
+    elif [ "$output" == "Y" ] ; then
+        echo # yes
+    else
+        echo "Aborting..."
+        exit 1
+    fi
+    sudo pacman -Rsndd lib32-nvidia-libgl lib32-nvidia-utils lib32-opencl-nvidia nvidia nvidia-libgl nvidia-settings nvidia-utils opencl-nvidia
+    sudo pacman -S mesa-libgl lib32-mesa-libgl xf86-video-intel
+fi
+
+
