@@ -1,3 +1,0 @@
-#!/bin/bash
-
-xdotool search --sync --classname crx_kfbnhhcmmpmjfkkakaplojljcodkmobo set_window --class crx_kfbnhhcmmpmjfkkakaplojljcodkmobo

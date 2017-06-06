@@ -1,5 +1,0 @@
-#!/bin/bash
-
-xdotool search --sync --classname crx_bhdkpicgcninjcccdbdnnaopdhpmdpah set_window --class crx_bhdkpicgcninjcccdbdnnaopdhpmdpah
-
-xdotool search --sync --classname crx_bhdkpicgcninjcccdbdnnaopdhpmdpah set_window --class crx_bhdkpicgcninjcccdbdnnaopdhpmdpah

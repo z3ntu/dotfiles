@@ -1,5 +1,0 @@
-#!/usr/bin/fish
-
-set kraken_name "alsa_output.usb-Razer_Razer_Kraken_7.1_Chroma-00.analog-stereo"
-echo $kraken_name
-pacmd set-default-sink $kraken_name

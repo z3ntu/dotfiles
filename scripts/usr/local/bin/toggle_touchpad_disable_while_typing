@@ -1,0 +1,13 @@
+#!/bin/bash
+
+device="$(xinput list | grep "ETPS/2 Elantech Touchpad" | awk '{ print $6 }' | awk -F'id=' '{ print $2 }')"
+property="$(xinput list-props $device | grep "Disable While Typing Enabled" | head -n1 | awk -F'[()]' '{ print $2 }')"
+mode="$(xinput list-props $device | grep $property | awk '{ print $7 }')"
+echo $device $property
+if [ "$mode" == "1" ]; then
+  echo "Set disabled."
+  xinput set-prop $device $property 0
+else
+  echo "Set enabled."
+  xinput set-prop $device $property 1
+fi
