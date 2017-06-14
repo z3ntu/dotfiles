@@ -1,6 +1,3 @@
-set -x TERMINAL roxterm
-#set -x TERMINAL termite
-
 set -gx PATH (ruby -e 'print Gem.user_dir')/bin $PATH
 set -gx PATH ~/bin $PATH
 
@@ -12,7 +9,7 @@ alias gpg_decrypt_clipboard="xsel --clipboard | gpg --decrypt -"
 
 set -gx LESS "-RSMsi"
 
-eval (thefuck --alias | tr '\n' ';')
+thefuck --alias | source
 
 # start X at login
 #if status --is-login
