@@ -1,0 +1,8 @@
+#!/bin/sh
+# Xsetup - run as root before the login dialog appears
+pacman -Q nvidia
+if [ "$?" == 0 ]; then
+  xrandr --setprovideroutputsource modesetting NVIDIA-0
+  xrandr --auto
+  xrandr --dpi 96
+fi
