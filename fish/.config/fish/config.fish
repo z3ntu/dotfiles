@@ -1,6 +1,8 @@
 # custom entries on PATH
 set -gx PATH (ruby -e 'print Gem.user_dir')/bin $PATH
+set -gx PATH /usr/local/bin $PATH
 set -gx PATH ~/bin $PATH
+set -gx PATH /opt/atlassian/plugin-sdk/bin $PATH
 
 # virsh should connect to the system session by default
 set -gx LIBVIRT_DEFAULT_URI "qemu:///system"

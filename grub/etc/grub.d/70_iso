@@ -1,6 +1,12 @@
 #!/bin/sh
 cat <<EOF
 submenu 'ISO Boots' {
+	menuentry '[loopback]archlinux-2017.06.01-x86_64.iso' {
+		set isofile='(hd1,gpt1)/mnt/hdd/iso/archlinux-2017.06.01-x86_64.iso'
+		loopback loop $isofile
+		linux (loop)/arch/boot/x86_64/vmlinuz img_dev=$imgdevpath img_loop=$isofile earlymodules=loop
+		initrd (loop)/arch/boot/x86_64/archiso.img
+	}
 	menuentry "[loopback]GParted Live" {
 		insmod loopback
 		loopback loop (hd1,gpt1)/iso/gparted-live-0.25.0-3-amd64.iso
@@ -38,8 +44,8 @@ submenu 'ISO Boots' {
 	}
 	menuentry "[loopback]solydx" {
 		loopback loop (hd1,gpt1)/iso/solydx_8_64_201601.iso
-	        linux (loop)/live/vmlinuz findiso=/iso/solydx_8_64_201601.iso noeject noprompt  boot=live config ignore_uuid live-media-path=/live quiet splash --
-	        initrd (loop)/live/initrd.img
+		linux (loop)/live/vmlinuz findiso=/iso/solydx_8_64_201601.iso noeject noprompt  boot=live config ignore_uuid live-media-path=/live quiet splash --
+		initrd (loop)/live/initrd.img
 	}
 }
 EOF

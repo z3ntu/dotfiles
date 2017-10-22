@@ -1,7 +1,6 @@
 #!/bin/bash
 
-EFIDROID_DIR=/mnt/hdd/fairphone/efidroid/misc_stuff
-
+KEYSTORE_TOOLS=/mnt/hdd/fairphone/signing
 IMGFILE=$1
 
 if [ ! -n "$1" ]; then
@@ -9,4 +8,4 @@ if [ ! -n "$1" ]; then
   exit 1
 fi
 
-java -jar $EFIDROID_DIR/BootSignature.jar /boot $IMGFILE $EFIDROID_DIR/keystore.pk8 $EFIDROID_DIR/keystore.x509.pem $IMGFILE.signed
+java -jar $KEYSTORE_TOOLS/BootSignature.jar /boot $IMGFILE $KEYSTORE_TOOLS/keystore.pk8 $KEYSTORE_TOOLS/keystore.x509.pem $IMGFILE.signed
