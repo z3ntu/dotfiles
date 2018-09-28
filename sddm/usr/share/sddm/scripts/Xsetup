@@ -5,7 +5,8 @@ pacman -Q nvidia
 # Check if the 'nvidia' package is installed
 if [ "$?" == 0 ]; then
   # Check if we are running the 'linux' kernel
-  if [[ $(uname -r) == *-ARCH ]]; then
+#  if [[ $(uname -r) == *-ARCH ]]; then # pre 4.17.11
+  if [[ $(uname -r) == *-arch1 ]]; then
     xrandr --setprovideroutputsource modesetting NVIDIA-0
     xrandr --auto
     xrandr --dpi 96

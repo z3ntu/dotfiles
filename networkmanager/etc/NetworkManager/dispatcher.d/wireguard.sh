@@ -11,7 +11,7 @@ env >> $logfile
 
 if [ "$2" == "up" ]; then
     echo "UP!" >> $logfile
-    if [ "$IP4_ROUTE_0" == "192.168.0.0/24 0.0.0.0 600" ]; then
+    if [[ "$IP4_ROUTE_0" == "192.168.0.0/24 0.0.0.0"* ]]; then
         echo "HOME NETWORK!" >> $logfile
         ip route del 192.168.0.0/24 dev wg0
     else

@@ -11,6 +11,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'crusoexia/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'jakwings/vim-colors'
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 " Set the colorscheme to monokai
