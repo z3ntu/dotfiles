@@ -26,6 +26,6 @@ set number
 " Set line endings to unix automagically
 set ff=unix
 " Set the clipboard to the system clipboard
-"set clipboard+=unnamedplus
+set clipboard+=unnamedplus
 " Display tabs as character
 set list
