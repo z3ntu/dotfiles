@@ -1,8 +1,7 @@
-# custom entries on PATH
-#set -gx PATH (ruby -e 'print Gem.user_dir')/bin $PATH
-set -gx PATH /usr/local/bin $PATH
-set -gx PATH ~/bin $PATH
-set -gx PATH /opt/atlassian/plugin-sdk/bin $PATH
+# fish shell config
+
+set -gx EDITOR nvim
+set -gx DIFFPROG "nvim -d"
 
 # virsh should connect to the system session by default
 set -gx LIBVIRT_DEFAULT_URI "qemu:///system"
@@ -20,16 +19,18 @@ alias gpg_decrypt_clipboard="xsel --clipboard | gpg --decrypt -"
 alias pmb /mnt/hdd/postmarketOS/pmbootstrap/pmbootstrap.py
 
 # setup "thefuck"
-thefuck --alias | source
+if test -x /usr/bin/thefuck
+    thefuck --alias | source
+end
 
 # set email and name for debian stuff
 set -gx DEBFULLNAME "Luca Weiss"
 set -gx DEBEMAIL "luca@z3ntu.xyz"
 
-function monstercatinstinct
-   /usr/bin/streamlink --player mpv "https://www.youtube.com/watch?v=-rWPZtM1eRs" 480p &
-   disown
-end
+#function monstercatinstinct
+#   /usr/bin/streamlink --player mpv "https://www.youtube.com/watch?v=a_RMxE6bIo8" 480p &
+#   disown
+#end
 
 # start X at login
 #if status --is-login
