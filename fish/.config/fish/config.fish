@@ -7,7 +7,7 @@ set -gx DIFFPROG "nvim -d"
 set -gx LIBVIRT_DEFAULT_URI "qemu:///system"
 
 # set the pacaur directory
-set -gx AURDEST "/home/luca/aur"
+set -gx AURDEST ~/aur
 
 # fix up streamlink with mpv
 alias streamlink="streamlink --player mpv"
@@ -17,6 +17,8 @@ alias gpg_decrypt_clipboard="xsel --clipboard | gpg --decrypt -"
 
 # alias pmbootstrap.py
 alias pmb /mnt/hdd/postmarketOS/pmbootstrap/pmbootstrap.py
+# alias pypcap
+alias pypcap /mnt/hdd/razer/pypcap/pypcap.py
 
 # setup "thefuck"
 if test -x /usr/bin/thefuck
