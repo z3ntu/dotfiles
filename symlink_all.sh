@@ -6,6 +6,7 @@ stow fish
 stow fonts
 #stow i3
 stow neovim
+stow oh-my-fish
 stow ranger
 stow tmux
 sudo stow -t / grub/

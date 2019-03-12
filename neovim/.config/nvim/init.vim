@@ -29,3 +29,10 @@ set ff=unix
 set clipboard+=unnamedplus
 " Display tabs as character
 set list
+
+" Delete to black hole register
+" See https://stackoverflow.com/a/11994072/3527128
+nnoremap d "_d
+vnoremap d "_d
+" Keep current register after pasting
+vnoremap p "_dP
