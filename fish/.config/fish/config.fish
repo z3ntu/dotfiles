@@ -9,6 +9,10 @@ set -gx LIBVIRT_DEFAULT_URI "qemu:///system"
 # set the pacaur directory
 set -gx AURDEST ~/aur
 
+# set variables for 'asp'
+set -gx ASPROOT ~/.asp
+set -gx ASPCACHE ~/.cache/asp/cache
+
 # fix up streamlink with mpv
 alias streamlink="streamlink --player mpv"
 
@@ -33,6 +37,14 @@ set -gx DEBEMAIL "luca@z3ntu.xyz"
 #   /usr/bin/streamlink --player mpv "https://www.youtube.com/watch?v=a_RMxE6bIo8" 480p &
 #   disown
 #end
+
+function pb --description 'Paste to ptpb.pw'
+    curl -F c=@- https://ptpb.pw/
+end
+
+function pb_delete --description 'Delete a paste from ptpb.pw' --argument-names uuid
+    curl -X DELETE https://ptpb.pw/$uuid
+end
 
 # start X at login
 #if status --is-login

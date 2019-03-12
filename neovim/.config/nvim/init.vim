@@ -30,9 +30,19 @@ set clipboard+=unnamedplus
 " Display tabs as character
 set list
 
+" Force the cursor onto a new line after 72 characters in Git commit messages
+" See https://csswizardry.com/2017/03/configuring-git-and-vim/
+autocmd FileType gitcommit set textwidth=72
+" Colour the 73rd column so that we don’t type over our limit
+autocmd FileType gitcommit set colorcolumn=+1
+" In Git commit messages, also colour the 51st column (for titles)
+autocmd FileType gitcommit set colorcolumn+=51
+
 " Delete to black hole register
 " See https://stackoverflow.com/a/11994072/3527128
 nnoremap d "_d
 vnoremap d "_d
+nnoremap <Del> "_x
+vnoremap <Del> "_x
 " Keep current register after pasting
 vnoremap p "_dP
