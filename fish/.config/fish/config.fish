@@ -13,38 +13,24 @@ set -gx AURDEST ~/aur
 set -gx ASPROOT ~/.asp
 set -gx ASPCACHE ~/.cache/asp/cache
 
-# fix up streamlink with mpv
-alias streamlink="streamlink --player mpv"
-
-# convenience function
-alias gpg_decrypt_clipboard="xsel --clipboard | gpg --decrypt -"
-
-# alias pmbootstrap.py
-alias pmb /mnt/hdd/postmarketOS/pmbootstrap/pmbootstrap.py
-# alias pypcap
-alias pypcap /mnt/hdd/razer/pypcap/pypcap.py
+# set email and name for debian stuff
+set -gx DEBFULLNAME "Luca Weiss"
+set -gx DEBEMAIL "luca@z3ntu.xyz"
 
 # setup "thefuck"
 if test -x /usr/bin/thefuck
     thefuck --alias | source
 end
 
-# set email and name for debian stuff
-set -gx DEBFULLNAME "Luca Weiss"
-set -gx DEBEMAIL "luca@z3ntu.xyz"
+# convenience function
+function gpg_decrypt_clipboard --description 'Decrypt text on the clipboard via gpg'
+    xsel --clipboard | gpg --decrypt - $argv
+end
 
 #function monstercatinstinct
 #   /usr/bin/streamlink --player mpv "https://www.youtube.com/watch?v=a_RMxE6bIo8" 480p &
 #   disown
 #end
-
-function pb --description 'Paste to ptpb.pw'
-    curl -F c=@- https://ptpb.pw/
-end
-
-function pb_delete --description 'Delete a paste from ptpb.pw' --argument-names uuid
-    curl -X DELETE https://ptpb.pw/$uuid
-end
 
 # start X at login
 #if status --is-login
