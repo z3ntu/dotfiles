@@ -12,12 +12,15 @@ Plug 'crusoexia/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'jakwings/vim-colors'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'w0rp/ale'
 call plug#end()
 
-" Set the colorscheme to monokai
-set t_Co=256  " vim-monokai now only support 256 colours in terminal.
-colorscheme monokai
-"colorscheme messy
+" Set the colorscheme to monokai or messy, depending on the Konsole theme
+if $KONSOLE_PROFILE_NAME == 'Light'
+  colorscheme messy
+else
+  colorscheme monokai
+endif
 
 " Set tabs to spaces
 set ts=4 sw=4 et
