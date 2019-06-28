@@ -27,6 +27,10 @@ function gpg_decrypt_clipboard --description 'Decrypt text on the clipboard via 
     xsel --clipboard | gpg --decrypt - $argv
 end
 
+if [ (hostname) = "arch-tower" ]
+    set -gx CCACHE_DIR /mnt/data1/ccache
+end
+
 #function monstercatinstinct
 #   /usr/bin/streamlink --player mpv "https://www.youtube.com/watch?v=a_RMxE6bIo8" 480p &
 #   disown
