@@ -23,11 +23,11 @@ else
 endif
 
 " Set tabs to spaces
-set ts=4 sw=4 et
+set tabstop=4 shiftwidth=4 expandtab
 " Enable line numbers
 set number
 " Set line endings to unix automagically
-set ff=unix
+set fileformat=unix
 " Set the clipboard to the system clipboard
 set clipboard+=unnamedplus
 " Display tabs as character
