@@ -1,0 +1,7 @@
+defscrollback 100000
+scrollback 100000
+hardstatus on
+hardstatus alwayslastline
+
+logfile /tmp/screen-%S-%n.log
+deflog on
