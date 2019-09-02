@@ -1,7 +1,14 @@
+# increate scrollback size
 defscrollback 100000
 scrollback 100000
+
+# enable status bar
 hardstatus on
 hardstatus alwayslastline
 
+# log all text to /tmp
 logfile /tmp/screen-%S-%n.log
 deflog on
+
+# bind x to nothing (= unbind)
+bind x
