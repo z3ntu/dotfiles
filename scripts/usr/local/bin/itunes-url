@@ -1,0 +1,3 @@
+#!/bin/sh
+
+env WINEPREFIX="/home/luca/.wine_itunes" wine /home/luca/.wine_itunes/drive_c/Program\ Files/iTunes/iTunes.exe /url "$@"

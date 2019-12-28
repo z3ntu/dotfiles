@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KEYSTORE_TOOLS=/mnt/hdd/fairphone/signing
+KEYSTORE_TOOLS=/home/luca/dev/fairphone/signing
 IMGFILE=$1
 
 if [ ! -n "$1" ]; then

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=iTunes itmss handler
+Exec=/usr/local/bin/itunes-url
+Type=Application
+Terminal=false
+MimeType=x-scheme-handler/itmss;
+# You also have to add the following to your ~/.local/share/applications/mimeapps.list
+# x-scheme-handler/itmss=itunes-itmss.desktop

@@ -5,3 +5,10 @@ set -ex
 sudo sysctl net.ipv4.ip_forward=1
 sudo iptables -P FORWARD ACCEPT
 sudo iptables -A POSTROUTING -t nat -j MASQUERADE -s 172.16.42.0/24
+
+echo """
+Run on your phone:
+
+sudo route add default gw 172.16.42.2
+echo nameserver 80.80.80.80 | sudo tee /etc/resolv.conf
+"""

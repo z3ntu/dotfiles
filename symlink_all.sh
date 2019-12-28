@@ -3,11 +3,12 @@
 set -ex
 
 stow fish
-stow fonts
+#stow fonts
 #stow i3
 stow neovim
 stow oh-my-fish
 stow ranger
+stow share_applications
 stow tmux
 sudo stow -t / grub/
 sudo stow -t / networkmanager/
