@@ -13,6 +13,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'jakwings/vim-colors'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " Set the colorscheme to monokai or messy, depending on the Konsole theme

@@ -31,6 +31,10 @@ if [ (hostname) = "arch-tower" ]
     set -gx CCACHE_DIR /mnt/data1/ccache
 end
 
+if test -d ~/bin
+    set -gx PATH ~/bin $PATH
+end
+
 #function monstercatinstinct
 #   /usr/bin/streamlink --player mpv "https://www.youtube.com/watch?v=a_RMxE6bIo8" 480p &
 #   disown
