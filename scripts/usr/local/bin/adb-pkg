@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+
+action=$1
+package=$2
+filepath=$3
+destination=$4
+
+print_usage() {
+    echo "Usage: $0 [push|pull] PACKAGE SOURCE DEST"
+    exit 1
+}
+
+if [ -z $1 ] || [ -z $2 ] || [ -z $3 ] || [ -z $4 ]; then
+    print_usage
+fi
+
+filename=$(basename $filepath)
+
+# Allow directories as destination
+if [ -d "$destination" ]; then
+    destination=$destination/$filename
+fi
+
+if [ "$action" = "pull" ]; then
+    adb shell "touch /data/local/tmp/$filename"
+    adb shell "run-as $package cp $filepath /data/local/tmp/$filename"
+    adb pull /data/local/tmp/$filename $destination
+    adb shell "rm /data/local/tmp/$filename"
+elif [ "$action" = "push" ]; then
+    adb push $filepath /data/local/tmp/
+    adb shell "cat /data/local/tmp/$filename | run-as $package tee $destination >/dev/null"
+    adb shell "rm /data/local/tmp/$filename"
+else
+    print_usage
+fi
+
