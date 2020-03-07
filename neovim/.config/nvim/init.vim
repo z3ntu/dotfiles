@@ -17,7 +17,9 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " Set the colorscheme to monokai or messy, depending on the Konsole theme
-if $KONSOLE_PROFILE_NAME == 'Light'
+" See https://cgit.kde.org/konsole.git/commit/?id=9e3a30fdca2078e04bee2315ebd2adf678a81263
+let profile_name = system("qdbus $KONSOLE_DBUS_SERVICE $KONSOLE_DBUS_SESSION profile")
+if trim(profile_name) == 'Light'
   colorscheme messy
 else
   colorscheme monokai
