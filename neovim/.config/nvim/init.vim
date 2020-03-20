@@ -14,6 +14,7 @@ Plug 'jakwings/vim-colors'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
+Plug 'gpanders/vim-scdoc'
 call plug#end()
 
 " Set the colorscheme to monokai or messy, depending on the Konsole theme
@@ -43,6 +44,9 @@ autocmd FileType gitcommit set textwidth=72
 autocmd FileType gitcommit set colorcolumn=+1
 " In Git commit messages, also colour the 51st column (for titles)
 autocmd FileType gitcommit set colorcolumn+=51
+
+autocmd FileType scdoc set textwidth=80
+autocmd FileType scdoc set colorcolumn=+1
 
 " Delete to black hole register
 " See https://stackoverflow.com/a/11994072/3527128
