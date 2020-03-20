@@ -1,0 +1,37 @@
+#!/bin/bash
+# Adapted from https://github.com/eli-schwartz/aurpublish/blob/master/prepare-commit-msg.hook
+# Licensed under GPL-2.0-or-later
+
+old_commit_msg="$(cat ${1})"
+echo -n "" > "${1}"
+
+# Check for new APKBUILDs
+for path in $(git diff --name-only --cached --diff-filter=A); do
+    if [[ "${path}" =~ .*/APKBUILD$ ]]; then
+        (
+            pkgpath=${path%/APKBUILD}
+            echo -e "${pkgpath}: new aport\n" >> "${1}"
+        )
+    fi
+done
+
+# Check for updated APKBUILDs
+for path in $(git diff --name-only --cached --diff-filter=M); do
+    if [[ "${path}" =~ .*/APKBUILD$ ]]; then
+        (
+            source "${path}"
+            pkgpath=${path%/APKBUILD}
+            echo -e "${pkgpath}: upgrade to ${pkgver}\n" >> "${1}"
+        )
+    fi
+done
+
+# Check for deleted APKBUILDs
+for path in $(git diff --name-only --cached --diff-filter=D); do
+    if [[ "${path}" =~ .*/APKBUILD$ ]]; then
+        pkgpath=${path%/APKBUILD}
+        echo -e "${pkgpath}: remove\n" >> "${1}"
+    fi
+done
+
+echo "${old_commit_msg}" >> "${1}"
