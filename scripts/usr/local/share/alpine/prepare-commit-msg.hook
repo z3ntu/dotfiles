@@ -3,6 +3,12 @@
 # Licensed under GPL-2.0-or-later
 
 old_commit_msg="$(cat ${1})"
+
+# Don't overwrite existing commit messages
+if [ -n "$(echo $old_commit_msg | grep -v '^#')" ]; then
+    exit
+fi
+
 echo -n "" > "${1}"
 
 # Check for new APKBUILDs
