@@ -20,7 +20,7 @@ call plug#end()
 " Set the colorscheme to monokai or messy, depending on the Konsole theme
 " See https://cgit.kde.org/konsole.git/commit/?id=9e3a30fdca2078e04bee2315ebd2adf678a81263
 let profile_name = system("qdbus $KONSOLE_DBUS_SERVICE $KONSOLE_DBUS_SESSION profile")
-if trim(profile_name) == 'Light'
+if trim(profile_name) == 'Light' || filereadable("/tmp/konsole-light-theme")
   colorscheme messy
 else
   colorscheme monokai
