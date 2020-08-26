@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git diff --name-only | grep /APKBUILD | rev | cut -d'/' -f2 | rev
