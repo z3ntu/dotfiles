@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Converts HTML produced by Kate under "Edit" -> "Copy as HTML" to HTML that is understood by QML.
+# Useful for copying code with syntax highlighting into QML.
+
+# It essentially replaces <span style='color:#123123'> with <font color="#123123"> and removes extra tags from <pre> tags.
+
+cat - | sed -E $'s|<span style=\'color:(#[0-9a-z]{6});\'>([^<]+)</span>|<font color="\\1">\\2</font>|g' | sed 's|<pre .*>|<pre>|g' #| sed 's|$|<br>|'

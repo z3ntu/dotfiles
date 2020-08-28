@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+print_usage() {
+    echo "Usage: $0 PACKAGE_NAME DATABASE_NAME DEST"
+    exit 1
+}
+
+if [ -z "$1" ] || [ -z "$2" ] || [ ! -d "$3" ]; then
+    print_usage
+fi
+
+pkg=$1
+dbfile=$2
+dest=$3
+
+adb-pkg pull $pkg /data/data/$pkg/databases/$dbfile $dest
+adb-pkg pull $pkg /data/data/$pkg/databases/$dbfile-wal $dest
