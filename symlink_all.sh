@@ -2,6 +2,7 @@
 
 set -ex
 
+stow aur-out-of-date
 stow fish
 #stow fonts
 #stow i3

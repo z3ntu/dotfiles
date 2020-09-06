@@ -32,6 +32,14 @@ for path in $(git diff --name-only --cached --diff-filter=M); do
     fi
 done
 
+# Check for moved APKBUILDs
+for path in $(git diff --name-only --cached --diff-filter=R); do
+    if [[ "${path}" =~ .*/APKBUILD$ ]]; then
+        pkgpath=${path%/APKBUILD}
+        echo -e "${pkgpath}: move from <old-folder>\n" >> "${1}"
+    fi
+done
+
 # Check for deleted APKBUILDs
 for path in $(git diff --name-only --cached --diff-filter=D); do
     if [[ "${path}" =~ .*/APKBUILD$ ]]; then
