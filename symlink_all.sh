@@ -10,6 +10,7 @@ stow neovim
 stow oh-my-fish
 stow ranger
 stow share_applications
+stow systemd_user
 stow tmux
 sudo stow -t / grub/
 sudo stow -t / networkmanager/

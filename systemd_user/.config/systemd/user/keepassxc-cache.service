@@ -1,0 +1,9 @@
+[Unit]
+Description=Workaround for keepassxc putting state into ~/.cache
+
+[Service]
+Type=oneshot
+ExecStart=ln -s /home/luca/.local/share/keepassxc /home/luca/.cache/keepassxc
+
+[Install]
+WantedBy=default.target
