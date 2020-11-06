@@ -12,6 +12,7 @@ stow ranger
 stow share_applications
 stow systemd_user
 stow tmux
+sudo stow -t / fish-conf.d/
 sudo stow -t / grub/
 sudo stow -t / networkmanager/
 sudo stow -t / screen/
