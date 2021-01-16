@@ -1,0 +1,11 @@
+#!/bin/bash
+
+file="$1"
+
+if [ ! -f "$file" ]; then
+    echo "Usage: $0 FILE"
+    exit 1
+fi
+
+scp "$file" vps:/srv/http/public/tmp/
+echo "URL: https://public.z3ntu.xyz/tmp/$file"
