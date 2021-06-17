@@ -12,11 +12,11 @@ print_usage() {
     exit 1
 }
 
-if [ -z $1 ] || [ -z $2 ] || [ -z $3 ] || [ -z $4 ]; then
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
     print_usage
 fi
 
-filename=$(basename $filepath)
+filename=$(basename "$filepath")
 
 # Allow directories as destination
 if [ -d "$destination" ]; then
@@ -29,9 +29,9 @@ if [ "$action" = "pull" ]; then
     adb pull /data/local/tmp/$filename $destination
     adb shell "rm /data/local/tmp/$filename"
 elif [ "$action" = "push" ]; then
-    adb push $filepath /data/local/tmp/
-    adb shell "cat /data/local/tmp/$filename | run-as $package tee $destination >/dev/null"
-    adb shell "rm /data/local/tmp/$filename"
+    adb push "$filepath" /data/local/tmp/
+    adb shell "cat /data/local/tmp/\"$filename\" | run-as $package tee $destination >/dev/null"
+    adb shell "rm /data/local/tmp/\"$filename\""
 else
     print_usage
 fi
