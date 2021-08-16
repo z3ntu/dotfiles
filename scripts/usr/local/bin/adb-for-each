@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "ERROR: Please provide arguments!"
+    exit 1
+fi
+
+devices=($(adb devices | tail -n+2 | cut -f1))
+
+for device in "${devices[@]}"; do
+    echo "--- Device: $device ---"
+    adb -s "$device" $@
+done
