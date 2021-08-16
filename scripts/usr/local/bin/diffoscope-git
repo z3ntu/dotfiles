@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+if [ ! -f "$1" ]; then
+    echo "Usage: $0 FILE"
+    exit 1
+fi
+
+file="$1"
+tmpfile=$(mktemp)
+
+git show HEAD:$file > $tmpfile
+diffoscope $DIFFOSCOPE_ARGS $tmpfile $file
+rm $tmpfile
