@@ -8,6 +8,9 @@ shopt -s extglob
 cd $(git rev-parse --show-toplevel) > /dev/null
 
 name=${1##*/}
+# Remove v2- prefix
+name=${name#v*-}
+# Extract patch number from filename
 num=${name%%-*}
 
 if [ "$num" = "0000" ]; then
