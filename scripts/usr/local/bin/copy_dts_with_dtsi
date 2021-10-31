@@ -4,8 +4,13 @@ function copy_files -a filename -a destination
     echo "Processing file $filename"
     cp -v $filename $destination
 
-    set files (git grep -h "#include \"" $filename | cut -d'"' -f2) (git grep -h "/include/ \"" $filename | cut -d'"' -f2)
+    set files (git grep -h "^#include \"" $filename | cut -d'"' -f2) (git grep -h "^/include/ \"" $filename | cut -d'"' -f2)
     for f in $files
-            copy_files $f $destination
+            set result (find . -name (basename $f))
+            if test (count $result) -ne 1
+                echo "ERROR: $result"
+                #break
+            end
+            copy_files $result $destination
     end
 end
