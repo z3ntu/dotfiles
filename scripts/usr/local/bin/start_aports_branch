@@ -6,6 +6,6 @@ if [ ! -f APKBUILD ]; then
 fi
 
 # Surely not the prettiest awk expression but it works :)
-branch="$(awk -F"=" 'BEGIN {ORS=""}; /pkgname=/{ print $2 "-" }; /pkgver=/{ print $2 }' APKBUILD)"
+branch="$(awk -F"=" 'BEGIN {ORS=""}; /^pkgname=/{ print $2 "-" }; /^pkgver=/{ print $2 }' APKBUILD)"
 
 git switch --no-track -c "$branch" origin/master
