@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -ex
+
+tmpdir=$(mktemp -d)
+
+make modules_install INSTALL_MOD_PATH="$tmpdir"/modules
+
+cd "$tmpdir"/modules
+tar cf "$tmpdir"/modules.tar .
+
+scp "$tmpdir"/modules.tar pmos:
+ssh pmos "tar xf modules.tar"
+
+ssh -t pmos 'sudo mv -v lib/modules/* /lib/modules/' || true
+
+# CLEANUP
+
+rm -r "$tmpdir"
