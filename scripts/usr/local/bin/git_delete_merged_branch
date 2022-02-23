@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# If the branch that's currently checked out is equivalent as the remote branch
+# (passed via argument), then delete the local branch.
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 REMOTE_BRANCH"
+    exit 1
+fi
+
+current_branch=$(git branch --show-current)
+if [ -z "$current_branch" ]; then
+    echo "Not on any branch. Nothing to do..."
+    exit 0
+fi
+
+rev_head=$(git rev-parse HEAD)
+rev_remote=$(git rev-parse "$1")
+if [ "$rev_head" != "$rev_remote" ]; then
+    echo "Remote is not same as HEAD. Nothing to do..."
+    exit 0
+fi
+
+echo "Remote is same as HEAD. Deleting branch!"
+git switch --detach HEAD~0
+git branch --delete "$current_branch"
