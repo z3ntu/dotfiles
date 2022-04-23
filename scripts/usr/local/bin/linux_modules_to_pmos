@@ -12,8 +12,9 @@ tar cf "$tmpdir"/modules.tar .
 scp "$tmpdir"/modules.tar pmos:
 ssh pmos "tar xf modules.tar"
 
-ssh -t pmos 'sudo mv -v lib/modules/* /lib/modules/' || true
+ssh -t pmos 'sudo mkdir -p /lib/modules/ && sudo mv -v lib/modules/* /lib/modules/' || true
 
 # CLEANUP
 
+ssh pmos "rmdir --parents lib/modules/; rm modules.tar"
 rm -r "$tmpdir"
