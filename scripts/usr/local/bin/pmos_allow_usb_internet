@@ -10,5 +10,5 @@ echo """
 Run on your phone:
 
 sudo route add default gw 172.16.42.2
-echo nameserver 80.80.80.80 | sudo tee /etc/resolv.conf
+echo nameserver 1.1.1.1 | sudo tee /etc/resolv.conf
 """
