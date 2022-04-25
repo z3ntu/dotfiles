@@ -1,0 +1,4 @@
+#!/bin/bash
+# Imperfect way to sort words in a line
+# Usage: echo "f o o b a r" | sort_words
+cat - | tr " " "\n" | sort | tr "\n" " "; echo
