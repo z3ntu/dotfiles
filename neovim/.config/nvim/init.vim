@@ -36,6 +36,8 @@ set fileformat=unix
 set clipboard+=unnamedplus
 " Display tabs as character
 set list
+" Disable mouse integration
+set mouse=
 
 " Force the cursor onto a new line after 72 characters in Git commit messages
 " See https://csswizardry.com/2017/03/configuring-git-and-vim/
