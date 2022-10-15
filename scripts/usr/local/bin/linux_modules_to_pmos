@@ -4,7 +4,7 @@ set -ex
 
 tmpdir=$(mktemp -d)
 
-make modules_install INSTALL_MOD_PATH="$tmpdir"/modules
+make modules_install INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$tmpdir"/modules
 
 cd "$tmpdir"/modules
 tar cf "$tmpdir"/modules.tar .
