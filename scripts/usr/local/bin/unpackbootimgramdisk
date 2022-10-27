@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ ! -f "$1" ]; then
+    echo "Usage: $0 boot.img"
+    exit 1
+fi
+
+if [[ "$1" != *.img ]]; then
+    echo "ERROR: Image name must end with .img"
+    exit 1
+fi
+
+bootimg=$(realpath "$1")
+
+directory=$(basename "$bootimg" .img)
+if [ -d "$directory" ]; then
+    echo "ERROR: Directory '$directory' already exists."
+    exit 1
+fi
+
+mkdir "$directory"
+cd "$directory"
+unpackbootimg -i "$bootimg"
+
+mkdir ramdisk
+cd ramdisk
+gunzip -c ../*-ramdisk | cpio -i
