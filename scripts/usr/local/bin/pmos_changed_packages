@@ -2,7 +2,8 @@
 # Lists changed packages since $1 in pmaports and aports repository.
 
 packages=()
-changed_files=$(git diff "$1" --name-only)
+# shellcheck disable=SC2086
+changed_files=$(git diff $1 --name-only)
 
 for file in $changed_files; do
     if [ ! -f "$(dirname "$file")/APKBUILD" ]; then
