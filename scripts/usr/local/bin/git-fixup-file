@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Commit the provided file as fixup to the previous commit touching that file.
+#
+set -e
+
+if [ ! -f "$1" ]; then
+    echo "Usage: $0 <file>"
+    exit 1
+fi
+
+# Find previous
+prev_commit="$(git log --format=%H -1 "$1")"
+
+git add "$1"
+git commit --fixup "$prev_commit"
