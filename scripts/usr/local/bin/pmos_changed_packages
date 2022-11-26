@@ -1,3 +1,14 @@
-#!/bin/sh
+#!/bin/bash
+# Lists changed packages since $1 in pmaports and aports repository.
 
-git diff $1 --name-only | grep /APKBUILD | rev | cut -d'/' -f2 | rev
+packages=()
+changed_files=$(git diff "$1" --name-only)
+
+for file in $changed_files; do
+    if [ ! -f "$(dirname "$file")/APKBUILD" ]; then
+        continue
+    fi
+    packages+=("$(echo "$file" | rev | cut -d'/' -f2 | rev)")
+done
+
+printf '%s\n' "${packages[@]}" | sort | uniq
