@@ -58,3 +58,12 @@ nnoremap <Del> "_x
 vnoremap <Del> "_x
 " Keep current register after pasting
 vnoremap p "_dP
+
+" Move lines with keybind
+" See https://vim.fandom.com/wiki/Moving_lines_up_or_down#Mappings_to_move_lines
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
