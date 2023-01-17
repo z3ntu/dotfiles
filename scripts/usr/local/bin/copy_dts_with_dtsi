@@ -1,16 +1,37 @@
-#!/usr/bin/fish
+#!/bin/bash
+#
+# Copy a dts file recursively with all its dtsi dependencies to a different directory.
+#
 
-function copy_files -a filename -a destination
+set -eu
+
+filename="$1"
+destination="$2"
+
+if [ ! -f "$filename" ] || [ ! -d "$destination" ]; then
+    echo "Usage: $0 filename destination"
+    exit 1
+fi
+
+function copy_files() {
+    filename="$1"
+    destination="$2"
+
     echo "Processing file $filename"
-    cp -v $filename $destination
+    cp -v "$filename" "$destination"
 
-    set files (git grep -h "^#include \"" $filename | cut -d'"' -f2) (git grep -h "^/include/ \"" $filename | cut -d'"' -f2)
-    for f in $files
-            set result (find . -name (basename $f))
-            if test (count $result) -ne 1
-                echo "ERROR: $result"
-                #break
-            end
-            copy_files $result $destination
-    end
-end
+    mapfile -t files < <(git grep -h "^#include \"" "$filename" | cut -d'"' -f2; \
+                         git grep -h "^/include/ \"" "$filename" | cut -d'"' -f2)
+
+    for f in "${files[@]}"; do
+        mapfile -t result < <(find . -name "$(basename "$f")")
+        if [ "${#result[@]}" != 1 ]; then
+            echo "ERROR: ${result[*]}"
+            continue
+        fi
+        copy_files "${result[0]}" "$destination"
+    done
+}
+
+cd "$(dirname "$filename")"
+copy_files "$filename" "$destination"
