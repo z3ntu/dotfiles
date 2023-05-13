@@ -1,12 +1,13 @@
-#!/bin/bash
+#!/bin/bash -e
 # Lists changed packages since $1 in pmaports and aports repository.
 
 packages=()
 # shellcheck disable=SC2086
-changed_files=$(git diff $1 --name-only)
+changed_files=$(git diff $1 --name-only :/)
+toplevel=$(git rev-parse --show-toplevel)
 
 for file in $changed_files; do
-    if [ ! -f "$(dirname "$file")/APKBUILD" ]; then
+    if [ ! -f "$(dirname "$toplevel/$file")/APKBUILD" ]; then
         continue
     fi
     packages+=("$(echo "$file" | rev | cut -d'/' -f2 | rev)")
