@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# Unmount the partitions inside a super.img and clean up.
+# See super-img-mount script for more details.
+#
+
+set -e
+shopt -s nullglob
+
+superimg="$1"
+if [ ! -f "$superimg" ]; then
+    echo "Usage: $0 super.img"
+    exit 1
+fi
+
+rawimg="$superimg.raw"
+if [ ! -f "$rawimg" ]; then
+    echo "ERROR: File $rawimg does not exist"
+    exit 1
+fi
+
+for d in /mnt/android/*; do
+    # Unmount if it's still mounted
+    if mountpoint -q "$d"; then
+        sudo umount "$d"
+    fi
+
+    # Remove mount point
+    sudo rmdir "$d"
+done
+
+# Remove device-mapper devices
+for d in /dev/mapper/dynpart-*; do
+    sudo dmsetup remove "$d"
+done
+
+# Remove loop device (could be multiple in exceptional cases, that's why we loop)
+loopdev_lines="$(losetup --output NAME,BACK-FILE --noheadings --list | grep "$rawimg")"
+while IFS= read -r line; do
+    loopdev="$(echo "$line" | cut -d' ' -f1)"
+    sudo losetup -d "$loopdev"
+done <<< "$loopdev_lines"
+
+echo "Done!"

@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+# Mount the partitions inside a super.img to be able to inspect them.
+#
+# Dependencies:
+# * simg2img (from android-tools)
+# * parse-android-dynparts (from https://github.com/tchebb/parse-android-dynparts)
+#
+
+set -e
+
+if compgen -G "/dev/mapper/dynpart-*" > /dev/null; then
+    echo "ERROR: Image appears to be mounted already. Please unmount first!"
+    exit 1
+fi
+
+superimg="$1"
+if [ ! -f "$superimg" ]; then
+    echo "Usage: $0 super.img"
+    exit 1
+fi
+
+rawimg="$superimg.raw"
+
+# Convert sparse image into raw image
+if [ ! -f "$rawimg" ]; then
+    simg2img "$superimg" "$rawimg"
+else
+    echo "INFO: $rawimg already exists. Skipping conversion."
+fi
+
+# Set up loop device
+loopdev="$(sudo losetup --read-only --find --show "$rawimg")"
+
+# Create device-mapper devices from loop
+sudo dmsetup create --concise "$(sudo parse-android-dynparts "$loopdev")"
+
+# Mount all partitions (read-only)
+for dev in /dev/mapper/dynpart-*; do
+    partname=${dev//\/dev\/mapper\/dynpart-/}
+    mountpoint="/mnt/android/$partname"
+    sudo mkdir -p "$mountpoint"
+    sudo mount -o ro "$dev" "$mountpoint"
+done
+
+echo "Done! Check mount points at /mnt/android/*"
