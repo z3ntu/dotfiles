@@ -33,3 +33,12 @@ function gpg_decrypt_clipboard --description 'Decrypt text on the clipboard via 
         xsel --clipboard | gpg --decrypt - $argv
     end
 end
+
+function bgFunc
+  fish -c (string join -- ' ' (string escape -- $argv)) &
+end
+
+function stfu
+     bgFunc $argv 2>/dev/null >/dev/null
+     disown
+end
