@@ -8,4 +8,4 @@ if [ ! -f "$file" ]; then
 fi
 
 scp "$file" vps:/srv/http/public/tmp/
-echo "URL: https://public.z3ntu.xyz/tmp/$(basename $file)"
+echo "URL: https://public.lucaweiss.eu/tmp/$(basename $file)"
