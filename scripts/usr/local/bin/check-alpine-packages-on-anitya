@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Check that maintained packages in an Alpine/postmarketOS tree maintained by
+# me are actually mapped on release-monitoring.org, so that out-of-date
+# notifications work correctly.
+
+if [ ! -d main/ ]; then
+    echo "ERROR: It doesn't look like we're in a aports/pmaports tree."
+    exit 1
+fi
+
+mapfile -t packages < <(git grep "Maintainer: Luca Weiss" | cut -d/ -f2)
+
+for package in "${packages[@]}"; do
+    result="$(curl -Ss https://release-monitoring.org/api/project/Alpine/"$package")"
+    if ! echo "$result" | jq -e .version >/dev/null; then
+        echo "Package mapping not found: $package"
+    fi
+done
