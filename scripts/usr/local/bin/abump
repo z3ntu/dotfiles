@@ -23,6 +23,9 @@ git push z3ntu master
 # Update pkgver
 sed -i 's|^pkgver=.*|pkgver='"$1"'|' APKBUILD
 
+# Reset pkgrel
+sed -i 's|^pkgrel=.*|pkgrel=0|' APKBUILD
+
 # Update checksums
 dabuild checksum >/dev/null
 
