@@ -10,7 +10,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'crusoexia/vim-monokai'
 Plug 'vim-airline/vim-airline'
-Plug 'jakwings/vim-colors'
+Plug 'Thesola10/vim-colors', { 'commit': 'f48c30321543ab05253cd1ccd383ce36fc793dd3' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
