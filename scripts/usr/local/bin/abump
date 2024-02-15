@@ -2,26 +2,45 @@
 
 set -ex
 
-if [ ! -f APKBUILD ]; then
-    echo "ERROR: Use in a directory with an APKBUILD present."
-    exit 1
-fi
 if [ -z "$1" ]; then
-    echo "Usage: $0 pkgver"
+    echo "Usage: $0 [--single] pkgname-pkgver"
     exit 1
 fi
 
-# Go back to master branch, wherever we were at
-git switch master
+single_bump=false
+if [ "$1" = "--single" ]; then
+    single_bump=true
+    shift
+fi
 
-# Update to latest commits
-git pull
+name=${1%-[0-9]*}
+ver=${1#${name}-}
 
-# Push a copy to fork master branch, to speed up pushes
-git push z3ntu master
+echo name=$name
+echo ver=$ver
+
+apkbuild="$(ls -1 ./*/"$name"/APKBUILD)"
+
+if [ ! -f "$apkbuild" ]; then
+    echo "ERROR: Found no APKBUILD"
+    exit 1
+fi
+
+cd "$(dirname "$apkbuild")"
+
+if [ "$single_bump" = "true" ]; then
+    # Go back to master branch, wherever we were at
+    git switch master
+
+    # Update to latest commits
+    git pull
+
+    # Push a copy to fork master branch, to speed up pushes
+    git push lucaweiss master
+fi
 
 # Update pkgver
-sed -i 's|^pkgver=.*|pkgver='"$1"'|' APKBUILD
+sed -i 's|^pkgver=.*|pkgver='"$ver"'|' APKBUILD
 
 # Reset pkgrel
 sed -i 's|^pkgrel=.*|pkgrel=0|' APKBUILD
@@ -39,7 +58,14 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
-start_aports_branch
+
+if [ "$single_bump" = "true" ]; then
+    start_aports_branch
+fi
+
 git add -u .
 git commit --no-edit
-git push -u z3ntu -o merge_request.create -o merge_request.remove_source_branch
+
+if [ "$single_bump" = "true" ]; then
+    git push -u lucaweiss -o merge_request.create -o merge_request.remove_source_branch
+fi
