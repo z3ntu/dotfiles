@@ -29,7 +29,9 @@ readonly devmem_width
 addr="$start_addr"
 while [ "$addr" -lt "$end" ]; do
     printf "0x%X - " "$addr"
-    devmem "$addr" "$devmem_width"
+
+    # toybox outputs the value only in hex when the address is given in hex
+    devmem "$(printf "0x%X" "$addr")" "$devmem_width"
 
     addr="$((addr + 4))"
 done
