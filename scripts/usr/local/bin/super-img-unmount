@@ -26,7 +26,7 @@ for d in /mnt/android/*; do
     fi
 
     # Remove mount point
-    sudo rmdir "$d"
+    sudo rmdir "$d" || true
 done
 
 # Remove device-mapper devices
