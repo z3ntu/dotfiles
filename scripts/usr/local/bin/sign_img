@@ -1,11 +1,11 @@
 #!/bin/bash
 
-KEYSTORE_TOOLS=/home/luca/dev/fairphone/signing
-IMGFILE=$1
+KEYSTORE_TOOLS=/tmp
+IMGFILE="$1"
 
-if [ ! -n "$1" ]; then
+if [ -z "$1" ]; then
   echo "Usage: $0 <file.img>"
   exit 1
 fi
 
-java -jar $KEYSTORE_TOOLS/BootSignature.jar /boot $IMGFILE $KEYSTORE_TOOLS/keystore.pk8 $KEYSTORE_TOOLS/keystore.x509.pem $IMGFILE.signed
+java -jar $KEYSTORE_TOOLS/BootSignature.jar /boot "$IMGFILE" $KEYSTORE_TOOLS/keystore.pk8 $KEYSTORE_TOOLS/keystore.x509.pem "$IMGFILE.signed"

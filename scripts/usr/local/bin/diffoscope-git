@@ -8,8 +8,8 @@ if [ ! -f "$1" ]; then
 fi
 
 file="$1"
-tmpfile=$(mktemp)
+tmpfile="$(mktemp)"
 
-git show HEAD:$file > $tmpfile
-diffoscope $DIFFOSCOPE_ARGS $tmpfile $file
-rm $tmpfile
+git show HEAD:"$file" > "$tmpfile"
+diffoscope $DIFFOSCOPE_ARGS "$tmpfile" "$file"
+rm "$tmpfile"

@@ -10,61 +10,58 @@ step=1
 previous=$(cat ${path}/brightness)
 
 function commit {
-	if [[ $1 = [0-9]* ]]
-	then 
-		if [[ $1 -gt $max ]]
-		then 
+	if [[ $1 = [0-9]* ]]; then
+		if [[ $1 -gt $max ]]; then
 			next=$max
-		elif [[ $1 -lt 0 ]]
-		then 
+		elif [[ $1 -lt 0 ]]; then
 			next=0
-		else 
+		else
 			next=$1
 		fi
-		echo $next >> ${path}/brightness
+		echo "$next" >> ${path}/brightness
 		exit 0
-	else 
+	else
 		exit 1
 	fi
 }
 
 case "$1" in
- up)
-     commit $(($previous + $step))
-  ;;
- down)
-     commit $(($previous - $step))
-  ;;
- max)
-	 commit $max
-  ;;
- on)
-	 $0 max
-  ;;
- off)
-	 commit 0
-  ;;
- show)
-	 echo $previous
-  ;;
- night)
-	 commit 1 
-	 ;;
- allowusers)
-	 # Allow members of users group to change brightness
-	 sudo chgrp users ${path}/brightness
-	 sudo chmod g+w ${path}/brightness
-  ;;
- disallowusers)
-	 # Allow members of users group to change brightness
-	 sudo chgrp root ${path}/brightness
-	 sudo chmod g-w ${path}/brightness
-  ;;
-  percent)
-	 printf "%.0f" $(bc -l <<< "$previous / $max * 100")
-  ;;
- *)
-	 commit	$1
+	up)
+		commit $((previous + step))
+		;;
+	down)
+		commit $((previous - step))
+		;;
+	max)
+		commit "$max"
+		;;
+	on)
+		$0 max
+		;;
+	off)
+		commit 0
+		;;
+	show)
+		echo "$previous"
+		;;
+	night)
+		commit 1
+		;;
+	allowusers)
+		# Allow members of users group to change brightness
+		sudo chgrp users ${path}/brightness
+		sudo chmod g+w ${path}/brightness
+		;;
+	disallowusers)
+		# Allow members of users group to change brightness
+		sudo chgrp root ${path}/brightness
+		sudo chmod g-w ${path}/brightness
+		;;
+	percent)
+		printf "%.0f" "$(bc -l <<< "$previous / $max * 100")"
+		;;
+	*)
+		commit "$1"
 esac
 
 exit 0

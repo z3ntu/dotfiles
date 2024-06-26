@@ -15,5 +15,5 @@ pkg=$1
 dbfile=$2
 dest=$3
 
-adb-pkg pull $pkg /data/data/$pkg/databases/$dbfile $dest
-adb-pkg pull $pkg /data/data/$pkg/databases/$dbfile-wal $dest
+adb-pkg pull "$pkg" "/data/data/$pkg/databases/$dbfile" "$dest"
+adb-pkg pull "$pkg" "/data/data/$pkg/databases/$dbfile-wal" "$dest"

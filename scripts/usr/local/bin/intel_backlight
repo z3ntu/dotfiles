@@ -20,7 +20,7 @@ function commit {
 		else 
 			next=$1
 		fi
-		echo $next >> ${path}/brightness
+		echo "$next" >> ${path}/brightness
 		exit 0
 	else 
 		exit 1
@@ -28,42 +28,42 @@ function commit {
 }
 
 case "$1" in
- up)
-     commit $(($previous + $step))
-  ;;
- down)
-     commit $(($previous - $step))
-  ;;
- max)
-	 commit $max
-  ;;
- on)
-	 $0 max
-  ;;
- off)
-	 commit 0
-  ;;
- show)
-	 echo $previous
-  ;;
- night)
-	 commit 1 
-	 ;;
- allowusers)
-	 # Allow members of users group to change brightness
-	 sudo chgrp users ${path}/brightness
-	 sudo chmod a+w ${path}/brightness
-  ;;
- disallowusers)
-	 # Allow members of users group to change brightness
-	 sudo chgrp root ${path}/brightness
-	 sudo chmod g-w ${path}/brightness
-  ;;
-  percent)
-	 printf "%.0f" $(bc -l <<< "$previous / $max * 100")
-  ;;
- *)
-	 commit	$1
+	up)
+		commit $((previous + step))
+		;;
+	down)
+		commit $((previous - step))
+		;;
+	max)
+		commit "$max"
+		;;
+	on)
+		$0 max
+		;;
+	off)
+		commit 0
+		;;
+	show)
+		echo "$previous"
+		;;
+	night)
+		commit 1
+		;;
+	allowusers)
+		# Allow members of users group to change brightness
+		sudo chgrp users ${path}/brightness
+		sudo chmod a+w ${path}/brightness
+		;;
+	disallowusers)
+		# Allow members of users group to change brightness
+		sudo chgrp root ${path}/brightness
+		sudo chmod g-w ${path}/brightness
+		;;
+	percent)
+		printf "%.0f" "$(bc -l <<< "$previous / $max * 100")"
+		;;
+	*)
+		commit "$1"
 esac
 
 exit 0

@@ -16,8 +16,8 @@ fi
 name=${1%-[0-9]*}
 ver=${1#${name}-}
 
-echo name=$name
-echo ver=$ver
+echo "name=$name"
+echo "ver=$ver"
 
 apkbuild="$(ls -1 ./*/"$name"/APKBUILD)"
 
