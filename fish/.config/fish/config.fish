@@ -6,13 +6,9 @@ set -gx DIFFPROG "nvim -d"
 # virsh should connect to the system session by default
 set -gx LIBVIRT_DEFAULT_URI "qemu:///system"
 
-# set variables for 'asp'
-set -gx ASPROOT ~/.asp
-set -gx ASPCACHE ~/.cache/asp/cache
-
 # set email and name for debian stuff
 set -gx DEBFULLNAME "Luca Weiss"
-set -gx DEBEMAIL "luca@z3ntu.xyz"
+set -gx DEBEMAIL "luca@lucaweiss.eu"
 
 # ssh socket
 set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
@@ -34,11 +30,8 @@ function gpg_decrypt_clipboard --description 'Decrypt text on the clipboard via 
     end
 end
 
-function bgFunc
-  fish -c (string join -- ' ' (string escape -- $argv)) &
-end
-
+# launch a process in the background, silencing all output
 function stfu
-     bgFunc $argv 2>/dev/null >/dev/null
-     disown
+    fish -c (string join -- ' ' (string escape -- $argv)) 2>/dev/null >/dev/null &
+    disown
 end
