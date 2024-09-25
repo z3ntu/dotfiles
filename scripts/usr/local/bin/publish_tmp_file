@@ -9,5 +9,7 @@ if [ ! -f "$file" ]; then
     exit 1
 fi
 
-scp "$file" vps:/srv/http/public/tmp/
-echo "URL: https://public.lucaweiss.eu/tmp/$(basename "$file")"
+scp "$file" ahti:/srv/http/public/tmp/
+
+file_url="$(basename "$file" | tr -d '\n' | jq -sRr @uri)"
+echo "URL: https://public.lucaweiss.eu/tmp/$file_url"
