@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#
+# Watches the kernel logs for a hung iwlwifi chip/driver, and reprobes the driver when necessary.
+# Unfortunately necessary on my rather old G550JK laptop.
+#
+
+set -e
+set -u
+set -x
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "ERROR: Must run as root!"
+    exit 1
+fi
+
+update_last() {
+    last="$(date "+%Y-%m-%d %H:%M:%S")"
+}
+
+update_last
+
+while true; do
+    if [ -n "$(journalctl --quiet --dmesg --grep=iwlwifi --priority=err --since="$last")" ]; then
+        echo "Issue found - reprobe!"
+        echo 1 > /sys/bus/pci/drivers/iwlwifi/0000:04:00.0/remove
+        echo 1 > /sys/bus/pci/rescan
+    fi
+    update_last
+    sleep 10
+done
