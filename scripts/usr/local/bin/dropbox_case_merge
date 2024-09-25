@@ -1,0 +1,41 @@
+#!/usr/bin/env fish
+
+# WARNING: This script doesn't really have any safety checks, so be careful in running it.
+# Make your PWD be the extracted contents of the .zip file from Dropbox.
+
+# Dropbox is a bit useless as when you download some directories as .zip file and extract them on
+# a case sensitive file system then you'll get some files in a folder named e.g. FooBar and some
+# other files in a folder foobar. In the Web UI they merge it together but in the zip you'll get a
+# random mix.
+#
+# So this script cleans them up by merging the two case variants together.
+#
+# * find directory with uppercase letter
+#   * search if there's an only-lowercase variant
+#     * mv $lowercase $mixedcase
+#     * rmdir $lowercase
+#
+# It's been years since I wrote this but seems this needs to be run multiple times until "Counter: 0"
+
+set counter 0
+set dirs (find . -depth -name '*[[:upper:]]*' -type d)
+for dir in $dirs
+    set basename (basename $dir)
+    set dirname (dirname $dir)
+    set basename_lower (string lower $basename)
+    set lower_dir (echo "$dirname/$basename_lower")
+    echo Processing $dir ...
+    if test -d "$lower_dir"
+        #echo "Move contents of $lower_dir to $dir"
+        if test (find "$lower_dir" -mindepth 1 -maxdepth 1 -name ".*" | wc -l) -gt 0
+            cp -r "$lower_dir"/.* "$dir"/ || break
+            rm -r "$lower_dir"/.*
+        end
+        if test (find "$lower_dir" -mindepth 1 -maxdepth 1 -name "*" | wc -l) -gt 0
+            cp -r "$lower_dir"/* "$dir"/ || break
+        end
+        rm -r "$lower_dir"
+        set counter (math $counter + 1)
+    end
+end
+echo Counter: $counter
