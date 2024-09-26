@@ -1,0 +1,35 @@
+#!/bin/sh
+
+#
+# Download email from lore.kernel.org into the local mbox directory where
+# aerc-mail is pointing.
+#
+
+set -eu
+
+if [ -z "${1:-}" ]; then
+    echo "Usage: $0 https://lore.kernel.org/foo/bar@example.org/"
+    exit 1
+fi
+
+# Extract base URL without anyything extra like "T/#t"
+url="$(echo "$1" | grep -o "https://lore.kernel.org/[^/]\+/[^/]\+/" || true)"
+if [ -z "$url" ]; then
+    echo "ERROR: Unable to find lore.kernel.org link in parameter!"
+    exit 1
+fi
+
+# Extract Message-ID from URL
+msgid="$(echo "$url" | cut -d'/' -f5)"
+
+dest=~/mbox/"$msgid".mbox
+if [ -e "$dest" ]; then
+    echo "ERROR: File $dest already exists."
+    exit 1
+fi
+
+raw_url="$url"raw
+echo "Fetching mbox from: $raw_url"
+curl --silent --show-error --fail --output "$dest" "$raw_url"
+
+echo "Success! $dest"
