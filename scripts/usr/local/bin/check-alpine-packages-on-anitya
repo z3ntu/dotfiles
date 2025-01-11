@@ -4,12 +4,18 @@
 # me are actually mapped on release-monitoring.org, so that out-of-date
 # notifications work correctly.
 
+if [ -z "$1" ]; then
+    echo "Usage: $0 MAINTAINER"
+    exit 1
+fi
+maintainer="$1"
+
 if [ ! -d main/ ]; then
     echo "ERROR: It doesn't look like we're in a aports/pmaports tree."
     exit 1
 fi
 
-mapfile -t packages < <(git grep -E "Maintainer: Luca Weiss|maintainer=\"Luca Weiss" | cut -d/ -f2)
+mapfile -t packages < <(git grep -E "Maintainer: $maintainer|maintainer=\"$maintainer" | cut -d/ -f2)
 
 for package in "${packages[@]}"; do
     result="$(curl -Ss https://release-monitoring.org/api/project/Alpine/"$package")"
