@@ -9,7 +9,7 @@ if [ ! -d main/ ]; then
     exit 1
 fi
 
-mapfile -t packages < <(git grep "Maintainer: Luca Weiss" | cut -d/ -f2)
+mapfile -t packages < <(git grep -E "Maintainer: Luca Weiss|maintainer=\"Luca Weiss" | cut -d/ -f2)
 
 for package in "${packages[@]}"; do
     result="$(curl -Ss https://release-monitoring.org/api/project/Alpine/"$package")"
