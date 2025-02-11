@@ -2,6 +2,26 @@
 
 set -e
 
+unpack_ramdisk() {
+    short_name="$1"
+    filename="$2"
+
+    ident="$(file "$filename")"
+
+    mkdir "$short_name"
+    pushd "$short_name"
+
+    if echo "$ident" | grep -q "LZ4 compressed data"; then
+        unlz4 -c ../"$filename" | cpio -i
+    elif echo "$ident" | grep -q "gzip compressed data"; then
+        gunzip -c ../"$filename" | cpio -i
+    else
+        echo "ERROR: Unknown ramdisk format: $ident"
+    fi
+
+    popd
+}
+
 if [ ! -f "$1" ]; then
     echo "Usage: $0 boot.img"
     exit 1
@@ -24,16 +44,10 @@ mkdir "$directory"
 cd "$directory"
 unpackbootimg -i "$bootimg"
 
-if [ -f *-ramdisk ]; then
-    mkdir ramdisk
-    cd ramdisk
-    gunzip -c ../*-ramdisk | cpio -i
-    cd ..
+if [ -s ./*-ramdisk ]; then
+    unpack_ramdisk ramdisk ./*-ramdisk
 fi
 
-if [ -f *-vendor_ramdisk ]; then
-    mkdir vendor_ramdisk
-    cd vendor_ramdisk
-    gunzip -c ../*-vendor_ramdisk | cpio -i
-    cd ..
+if [ -s ./*-vendor_ramdisk ]; then
+    unpack_ramdisk vendor_ramdisk ./*-vendor_ramdisk
 fi
