@@ -27,5 +27,5 @@ while true; do
         echo 1 > /sys/bus/pci/rescan
     fi
     update_last
-    sleep 10
+    sleep 5
 done
