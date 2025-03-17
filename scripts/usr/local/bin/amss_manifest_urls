@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# Script to print links to CLO manifests for all snap_release.xml files in an
+# AMSS repository.
+#
+
+shopt -s globstar nullglob
+for file in ./**/snap_release.xml; do
+    if [ "$(xmllint --xpath '/snap_release/image' "$file" | wc -l)" -ne 2 ]; then
+        echo "WARNING: Not supported: $file"
+        continue
+    fi
+    values=$(xmllint --xpath '/snap_release/image/@*' "$file" | sed 's/^ \(.*\)="\(.*\)"$/\1 \2/')
+    oss_url="$(echo "$values" | grep "^oss_url " | cut -d' ' -f2)"
+    oss_manifest_git="$(echo "$values" | grep "^oss_manifest_git " | cut -d' ' -f2)"
+    au_tag="$(echo "$values" | grep "^au_tag " | cut -d' ' -f2)"
+
+    echo "$(echo "$file" | cut -d'/' -f2): $oss_url/$oss_manifest_git/-/blob/$au_tag/$au_tag.xml"
+done
