@@ -1,19 +1,29 @@
-#!/bin/bash
-#
-# Script to print links to CLO manifests for all snap_release.xml files in an
-# AMSS repository.
-#
+#!/usr/bin/env python3
+"""
+Script to print links to CLO manifests for all snap_release.xml files in an
+AMSS repository.
+"""
 
-shopt -s globstar nullglob
-for file in ./**/snap_release.xml; do
-    if [ "$(xmllint --xpath '/snap_release/image' "$file" | wc -l)" -ne 2 ]; then
-        echo "WARNING: Not supported: $file"
-        continue
-    fi
-    values=$(xmllint --xpath '/snap_release/image/@*' "$file" | sed 's/^ \(.*\)="\(.*\)"$/\1 \2/')
-    oss_url="$(echo "$values" | grep "^oss_url " | cut -d' ' -f2)"
-    oss_manifest_git="$(echo "$values" | grep "^oss_manifest_git " | cut -d' ' -f2)"
-    au_tag="$(echo "$values" | grep "^au_tag " | cut -d' ' -f2)"
+from pathlib import Path
+import xml.etree.ElementTree as ET
 
-    echo "$(echo "$file" | cut -d'/' -f2): $oss_url/$oss_manifest_git/-/blob/$au_tag/$au_tag.xml"
-done
+class Style: # pylint: disable=R0903,C0115
+    BOLD = '\033[1m'
+    RESET = "\033[0m"
+
+
+for snap_release in sorted(Path('.').glob('**/snap_release.xml')):
+    tree = ET.parse(snap_release)
+    root = tree.getroot()
+
+    print(f"{Style.BOLD}{snap_release.parts[0]}:{Style.RESET}")
+    for image in root.iter('image'):
+        # Ignore 'combo' type, not useful for now
+        if image.get("image_type") == "combo":
+            continue
+
+        oss_url = image.get("oss_url")
+        oss_manifest_git = image.get("oss_manifest_git")
+        au_tag = image.get("au_tag")
+
+        print(f"* {oss_url}/{oss_manifest_git}/-/blob/{au_tag}/{au_tag}.xml")
