@@ -11,7 +11,9 @@ set -gx DEBFULLNAME "Luca Weiss"
 set -gx DEBEMAIL "luca@lucaweiss.eu"
 
 # ssh socket
-set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+if test -e "$XDG_RUNTIME_DIR/ssh-agent.socket"
+    set -gx SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
+end
 
 # set up path
 fish_add_path -gm ~/bin
