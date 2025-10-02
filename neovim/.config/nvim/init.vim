@@ -70,3 +70,12 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Disable macro recording
 map q <Nop>
+
+" Shortcuts for commit tags
+function GetGitTag()
+    let name = trim(system("git config user.name"))
+    let email = trim(system("git config user.email"))
+    return name . " <" . email . ">"
+endfunction
+iabbrev R-b@ Reviewed-by: <C-R>=GetGitTag()<CR>
+iabbrev T-b@ Tested-by: <C-R>=GetGitTag()<CR>
