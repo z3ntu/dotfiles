@@ -1,8 +1,0 @@
-{
-  "ignore": {
-  },
-  "scripts": {
-    "bcm2835": "curl -s http://www.airspayce.com/mikem/bcm2835/ | grep 'span id=\"projectnumber\"' | grep -o '[0-9]\\+\\.[0-9]\\+'",
-    "quickbms": "curl -s http://aluigi.altervista.org/quickbms.htm | grep -o '[0-9]\\+\\.[0-9]\\+\\.[0-9]\\+' | head -n1"
-  }
-}

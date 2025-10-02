@@ -1,6 +1,0 @@
-# Lock screen when remove
-#SUBSYSTEM=="usb", ACTION=="remove", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="/usr/local/bin/yubikey-screen-lock enable"
-#SUBSYSTEM=="usb", ACTION=="remove", ENV{ID_SECURITY_TOKEN}=="1", RUN+="/usr/local/bin/yubikey-screen-lock enable"
-# Unlock screen when plugging it in
-#SUBSYSTEM=="usb", ACTION=="add", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", RUN+="/usr/local/bin/yubikey-screen-lock disable"
-
