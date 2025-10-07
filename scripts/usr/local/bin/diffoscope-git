@@ -2,14 +2,36 @@
 
 set -e
 
+arg_staged=
+
+if [ "$1" = "--staged" ]; then
+    arg_staged=1
+    shift
+fi
+
 if [ ! -f "$1" ]; then
-    echo "Usage: $0 FILE"
+    echo "Usage: $0 [--staged] FILE"
     exit 1
 fi
 
-file="$1"
-tmpfile="$(mktemp)"
+arg_file="$1"
 
-git show HEAD:"$file" > "$tmpfile"
-diffoscope $DIFFOSCOPE_ARGS "$tmpfile" "$file"
-rm "$tmpfile"
+file_1="$(mktemp --tmpdir diffoscope-git.XXXXXXXXXX)"
+file_2="$(mktemp --tmpdir diffoscope-git.XXXXXXXXXX)"
+
+# ":file" specifies the content in stage 0, which is staged content, or if
+# there's no staged content then HEAD.
+# See also https://stackoverflow.com/a/5153379
+
+if [ -n "$arg_staged" ]; then
+    git show HEAD:"./$arg_file" > "$file_1" # HEAD content
+    git show :"./$arg_file" > "$file_2" # staged content
+else
+    git show :"./$arg_file" > "$file_1" # staged/HEAD content
+    cp "$PWD/$arg_file" "$file_2"
+fi
+
+diffoscope $DIFFOSCOPE_ARGS "$file_1" "$file_2"
+
+rm "$file_1"
+rm "$file_2"
