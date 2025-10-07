@@ -19,6 +19,13 @@ arg_file="$1"
 file_1="$(mktemp --tmpdir diffoscope-git.XXXXXXXXXX)"
 file_2="$(mktemp --tmpdir diffoscope-git.XXXXXXXXXX)"
 
+cleanup() {
+    rm "$file_1"
+    rm "$file_2"
+}
+
+trap cleanup EXIT
+
 # ":file" specifies the content in stage 0, which is staged content, or if
 # there's no staged content then HEAD.
 # See also https://stackoverflow.com/a/5153379
@@ -32,6 +39,3 @@ else
 fi
 
 diffoscope $DIFFOSCOPE_ARGS "$file_1" "$file_2"
-
-rm "$file_1"
-rm "$file_2"
