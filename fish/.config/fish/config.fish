@@ -15,11 +15,9 @@ if test -e "$XDG_RUNTIME_DIR/ssh-agent.socket"
     set -gx SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
 end
 
-# ctrl-backspace doesn't seem to work with Konsole
-# "fish_key_reader -c" shows it's essentially sending ctrl-h
-# https://bugs.kde.org/show_bug.cgi?id=435975
-# https://github.com/fish-shell/fish-shell/issues/11538#issuecomment-3356580330
-bind ctrl-h backward-kill-word
+# map alt-backspace to delete a word instead of kill-token
+# this aligns with older fish versions and other shells
+bind alt-backspace backward-kill-word
 
 # set up path
 fish_add_path -gm ~/bin
