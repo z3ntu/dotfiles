@@ -2,6 +2,8 @@
 
 set -ex
 
+HOST="${HOST:-pmos}"
+
 tmpdir=$(mktemp -d)
 
 make modules_install INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$tmpdir"/modules
@@ -9,12 +11,12 @@ make modules_install INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$tmpdir"/modules
 cd "$tmpdir"/modules
 tar cf "$tmpdir"/modules.tar .
 
-scp "$tmpdir"/modules.tar pmos:
-ssh pmos "tar xf modules.tar"
+scp "$tmpdir"/modules.tar "$HOST":
+ssh "$HOST" "tar xf modules.tar"
 
-ssh -t pmos 'sudo mkdir -p /lib/modules/ && sudo mv -v lib/modules/* /lib/modules/' || true
+ssh -t "$HOST" 'sudo mkdir -p /lib/modules/ && sudo mv -v lib/modules/* /lib/modules/' || true
 
 # CLEANUP
 
-ssh pmos "rmdir --parents lib/modules/; rm modules.tar"
+ssh "$HOST" "rmdir --parents lib/modules/; rm modules.tar"
 rm -r "$tmpdir"
