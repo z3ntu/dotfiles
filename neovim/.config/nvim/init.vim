@@ -14,11 +14,7 @@ Plug 'Thesola10/vim-colors', { 'commit': 'f48c30321543ab05253cd1ccd383ce36fc793d
 Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale'
 Plug 'gpanders/vim-scdoc'
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'main', 'do': ':TSUpdate' }
 call plug#end()
-
-" Execute .lua setup for treesitter
-lua require('config/treesitter')
 
 " Set the colorscheme to monokai or messy, depending on the Konsole theme
 " See https://invent.kde.org/utilities/konsole/-/commit/9e3a30fdca2078e04bee2315ebd2adf678a81263
