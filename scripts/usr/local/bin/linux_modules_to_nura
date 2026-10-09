@@ -2,7 +2,7 @@
 
 set -ex
 
-HOST="${HOST:-pmos}"
+HOST="${HOST:-nura}"
 
 tmpdir=$(mktemp -d)
 

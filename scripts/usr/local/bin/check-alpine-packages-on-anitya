@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Check that maintained packages in an Alpine/postmarketOS tree maintained by
+# Check that maintained packages in an Alpine/Nura tree maintained by
 # me are actually mapped on release-monitoring.org, so that out-of-date
 # notifications work correctly.
 
